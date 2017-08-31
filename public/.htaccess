@@ -1,0 +1,81 @@
+AddDefaultCharset UTF-8
+
+############################################################
+# Possible values: development, staging, production        #
+# Change value and upload ONCE to your server              #
+# AVOID re-uploading when deployment, things will go crazy #
+############################################################
+SetEnv APPLICATION_ENV "development"
+
+#CORS
+Header always set Access-Control-Allow-Origin: "*"
+Header always set Access-Control-Allow-Headers: "Origin, X-Requested-With, Content-Type, Access-Control-Allow-Origin, Authorization, Accept, X-Accept-Charset, X-Accept, Client-Security-Token"
+Header always set Access-Control-Allow-Methods: "POST, GET, PUT, OPTIONS, PATCH, DELETE"
+Header always set Access-Control-Allow-Credentials: "true"
+Header always set Access-Control-Max-Age: "1000"
+
+#CORS
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]
+
+#IMPORTANT TO GET JWT FROM HEADERS
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php?_url=/$1 [QSA,L]
+</IfModule>
+
+<files *.ico>
+SetOutputFilter DEFLATE
+</files>
+
+<files *.svg>
+SetOutputFilter DEFLATE
+</files>
+
+<files *.gif>
+SetOutputFilter DEFLATE
+</files>
+
+<files *.jpg>
+SetOutputFilter DEFLATE
+</files>
+
+<files *.jpeg>
+SetOutputFilter DEFLATE
+</files>
+
+<files *.png>
+SetOutputFilter DEFLATE
+</files>
+
+<files *.xml>
+SetOutputFilter DEFLATE
+</files>
+
+<files *.json>
+SetOutputFilter DEFLATE
+</files>
+
+<files *.php>
+SetOutputFilter DEFLATE
+</files>
+
+<files *.htm>
+SetOutputFilter DEFLATE
+</files>
+
+<files *.html>
+SetOutputFilter DEFLATE
+</files>
+
+<files *.js>
+SetOutputFilter DEFLATE
+</files>
+
+<files *.css>
+SetOutputFilter DEFLATE
+</files>
