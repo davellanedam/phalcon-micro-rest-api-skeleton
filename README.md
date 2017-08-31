@@ -1,4 +1,4 @@
-Phalcon Micro REST API
+Phalcon Micro REST API Basic Project
 ====================
 
 [![Author](http://img.shields.io/badge/author-@davellanedam-blue.svg?style=flat-square)](https://twitter.com/davellanedam)
@@ -8,7 +8,21 @@ Getting started
 --------
 
 This is a basic API REST written on [phalconPHP framework](https://github.com/phalcon/cphalcon).
-This project is created to help developers create a REST API in an easy way.
+This project is created to help developers create a basic REST API in an easy way.
+
+Features
+--------
+
+* Provide login with `Authorization` header with value `Basic username:password` where `username:password` **MUST BE ENCODED** with `Base64`.
+* Make requests with a token after login with `Authorization` header with value `Bearer yourToken` where `yourToken` is the **signed and encrypted token** given in the response from the login process.
+* Use ACL so you can have roles for users.
+* Timezone ready: Work UTC time (GMT+0). Responses with iso8601 date/time format.
+* Pagination ready.
+* Filters.
+* Easy deploy to staging and production environments.
+* User profile.
+* Users list.
+* Cities. (Example of use: call cities API, then send name of the city when creating or updating a user.
 
 Requirements
 ------------
@@ -41,7 +55,7 @@ cd myproject
 composer install
 composer update
 ```
-### Database Configuration
+### Database Configuration and Security
 
 There are 3 files in the `/myproject/config` directory, (development, staging and production) each one is meant to be used on different environments to make your life easier on deployment.
 
@@ -50,7 +64,7 @@ There are 3 files in the `/myproject/config` directory, (development, staging an
 3. Open `/myproject/config/server.staging.php` and setup your STAGING (testing server) database connection credentials
 4. Open `/myproject/config/server.production.php` and setup your PRODUCTION (production server) database connection credentials
 
-This is the structure of those files, remember to change values for yours.
+This is the structure of those 3 files, remember to change values for yours.
 ```php
 return [
     'database' => [
@@ -60,33 +74,13 @@ return [
         'password' => 'your_db_password',
         'dbname' => 'your_database_schema',
         'charset' => 'utf8',
+    ],
+    'authentication' => [
+        'secret' => 'your secret key to SIGN token', // This will sign the token. (still insecure)
+        'encryption_key' => 'Your ultra secret key to ENCRYPT the token', // Secure token with an ultra password
+        'expirationTime' => 86400 * 7, // One week till token expires
     ]
 ];
-```
-
-### Security
-
-**WARNING:** This software uses JWT Tokens for every request. This token is also encrypted.
-
-You **MUST** change default keys for **TOKEN** on each of your environments (development, staging, production) so each one has its own key. Go to `/myproject/config/config.php` and change the values.
-```php
-'authentication' => [
-    'secret' => '8j96ycslFmhBeqtQi9qC9c8ri2aYmwRiptUDOQ16', // 40 chars CHANGE THIS FOR EVERY PROJECT
-    'expirationTime' => 86400 * 7, // One week till token expires
-]
-```
-
-You **MUST** change default keys for **ENCRYPTION OF TOKEN** on each of your environments (development, staging, production) so each one has its own key. Go to `/myproject/config/services.php` and change the values.
-```php
-/**
- * Crypt service
- */
-$di->set('mycrypt', function () {
-    $crypt = new Crypt();
-    // Set a global encryption key CHANGE THIS FOR EVERY PROJECT (16 chars)!
-    $crypt->setKey('#D^M68arBtC1O$V6');
-    return $crypt;
-}, true);
 ```
 
 Usage
