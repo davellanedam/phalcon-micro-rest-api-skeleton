@@ -1,0 +1,14 @@
+.git/
+*.DS_Store
+.phalcon/
+.php/
+cache/
+.htaccess
+exclude-staging.txt
+exclude-production.txt
+deploy-staging.sh
+deploy-production.sh
+config/server.development.php
+config/server.staging.php
+public/.htaccess
+schemas/
