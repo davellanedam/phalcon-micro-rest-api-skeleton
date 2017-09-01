@@ -1,0 +1,587 @@
+{
+	"variables": [],
+	"info": {
+		"name": "api phalcon micro",
+		"_postman_id": "bd456712-1cdc-b9c5-4961-deef858101dc",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cities",
+			"description": "",
+			"item": [
+				{
+					"name": "/cities",
+					"request": {
+						"url": {
+							"raw": "http://api.myproject.local/cities?limit=5&offset=0&sort=name&order=asc",
+							"protocol": "http",
+							"host": [
+								"api",
+								"myproject",
+								"local"
+							],
+							"path": [
+								"cities"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "sort",
+									"value": "name",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "order",
+									"value": "asc",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Cities list"
+					},
+					"response": []
+				},
+				{
+					"name": "/cities/create",
+					"request": {
+						"url": "http://api.myproject.local/cities/create",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Floridablanca",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "Colombia",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Create city"
+					},
+					"response": []
+				},
+				{
+					"name": "/cities/get/{id}",
+					"request": {
+						"url": "http://api.myproject.local/cities/get/8",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Get city info"
+					},
+					"response": []
+				},
+				{
+					"name": "/cities/update/{id}",
+					"request": {
+						"url": "http://api.myproject.local/cities/update/8",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Floridablanca",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "Colombia",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Update city info"
+					},
+					"response": []
+				},
+				{
+					"name": "/cities/delete/{id}",
+					"request": {
+						"url": "http://api.myproject.local/cities/delete/7",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Delete city"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Index",
+			"description": "",
+			"item": [
+				{
+					"name": "/authenticate/",
+					"request": {
+						"url": "http://api.myproject.local/authenticate",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4xMjM0",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "User authentication"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"description": "",
+			"item": [
+				{
+					"name": "/profile",
+					"request": {
+						"url": "http://api.myproject.local/profile",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "User profile"
+					},
+					"response": []
+				},
+				{
+					"name": "/profile/update",
+					"request": {
+						"url": "http://api.myproject.local/profile/update",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "document",
+									"value": "123123",
+									"type": "text"
+								},
+								{
+									"key": "firstname",
+									"value": "Other name",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "Lastname",
+									"type": "text"
+								},
+								{
+									"key": "birthday",
+									"value": "1979-12-11",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "5345345",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "34534534",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Calle15",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Bogotá",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Updates profile"
+					},
+					"response": []
+				},
+				{
+					"name": "/profile/change-password",
+					"request": {
+						"url": "http://api.myproject.local/profile/change-password",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "current_password",
+									"value": "test123",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "test123",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Updates password"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"description": "",
+			"item": [
+				{
+					"name": "/users",
+					"request": {
+						"url": {
+							"raw": "http://api.myproject.local/users?limit=5&offset=0&sort=firstname, lastname&order=asc",
+							"protocol": "http",
+							"host": [
+								"api",
+								"myproject",
+								"local"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "sort",
+									"value": "firstname, lastname",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "order",
+									"value": "asc",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "filter",
+									"value": "{\"user_phone\":60}",
+									"type": "text",
+									"description": "",
+									"disabled": true
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Users list"
+					},
+					"response": []
+				},
+				{
+					"name": "/users/create",
+					"request": {
+						"url": "http://api.myproject.local/users/create",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "another@email.com",
+									"type": "text"
+								},
+								{
+									"key": "newPassword",
+									"value": "test123",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "my_username",
+									"type": "text"
+								},
+								{
+									"key": "firstname",
+									"value": "My name",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "My last name",
+									"type": "text"
+								},
+								{
+									"key": "level",
+									"value": "Superuser",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "12312312",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "31312312",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Calle 10",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Bogota",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "Colombia",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "birthday",
+									"value": "1979-01-01",
+									"type": "text"
+								},
+								{
+									"key": "authorised",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Create user"
+					},
+					"response": []
+				},
+				{
+					"name": "/users/get/{id}",
+					"request": {
+						"url": "http://api.myproject.local/users/get/4",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Get user info"
+					},
+					"response": []
+				},
+				{
+					"name": "/users/update/{id}",
+					"request": {
+						"url": "http://api.myproject.local/users/update/2",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "onemore@email.com",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "firstname",
+									"value": "Other name",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "Other lastname",
+									"type": "text"
+								},
+								{
+									"key": "birthday",
+									"value": "1979-01-01",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "level",
+									"value": "Superuser",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "4534534",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "2425235",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Calle 12",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Bogotá",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "Colombia",
+									"type": "text"
+								},
+								{
+									"key": "authorised",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Update user info"
+					},
+					"response": []
+				},
+				{
+					"name": "/users/change-password/{id}",
+					"request": {
+						"url": "http://api.myproject.local/users/change-password/5",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "newPassword",
+									"value": "test123",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Update user password"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
