@@ -280,6 +280,46 @@ Example of language file `es.json` :
 }
 ```
 
+Deployment
+-------
+You can make a deploy to staging or production servers. It will run a bash file with `rsync` command to sync your project directory to the servers project directory. Step into a terminal window and open your project folder, then type the following.
+
+### Deploy to staging server
+```bash
+deploy-staging.sh
+```
+
+### Deploy to production server
+```bash
+deploy-production.sh
+```
+### Do not forget to change variables to yours on each .sh file
+```bash
+PROJECT=myproject
+USER=server_username
+URL=my_staging_server_url
+```
+
+### Excluding files on deploy
+You can exclude files on each deployment environment (`/exclude-production.txt` and `/exclude-staging.txt`), add files you want to be excluded on the corresponding .txt file. Each excluded file or directory must be on a new line. Staging exclusion list example:
+
+```txt
+.git/
+*.DS_Store
+.phalcon/
+.php/
+cache/
+.htaccess
+exclude-staging.txt
+exclude-production.txt
+deploy-staging.sh
+deploy-production.sh
+config/server.development.php
+config/server.production.php
+public/.htaccess
+schemas/
+```
+
 Bugs or improvements
 -------
 Feel free to report any bugs or improvements.
