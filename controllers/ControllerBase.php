@@ -20,6 +20,17 @@ class ControllerBase extends Controller
     }
 
     /**
+     * Generated NOW datetime based on a timezone and added XX minutes
+     */
+    public function getNowDateTimePlusMinutes($minutes_to_add) {
+        $now = new DateTime();
+        $now->setTimezone(new DateTimeZone('UTC'));
+        $now->add(new DateInterval('PT' . $minutes_to_add . 'M'));
+        $now = $now->format('Y-m-d H:i:s');
+        return $now;
+    }
+
+    /**
      * Converts ISO8601 date to DateTime UTC
      */
     public function iso8601_to_utc($date) {

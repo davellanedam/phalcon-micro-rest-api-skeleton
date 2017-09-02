@@ -47,7 +47,7 @@ class indexController extends ControllerBase
             } else {
                 // check if user is blocked
                 $block_expires = strtotime($user->block_expires);
-                $now = strtotime("now");
+                $now = $this->getNowDateTime();
                 if ($block_expires > $now) {
                     $this->buildErrorResponse(403, "login.USER_BLOCKED");
                 } else if ($user->authorised == 0) {
@@ -70,7 +70,7 @@ class indexController extends ControllerBase
                             $this->buildErrorResponse(400, "login.WRONG_USER_PASSWORD");
                         } else {
                             // adds 120 mins block
-                            $block_date = date("Y-m-d H:i:s", strtotime("+120 minutes"));
+                            $block_date = $this->getNowDateTimePlusMinutes(120);
                             $user->block_expires = $block_date;
                             if (!$user->save()) {
                                 // Send errors
