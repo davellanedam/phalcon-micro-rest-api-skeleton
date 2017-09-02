@@ -18,8 +18,8 @@ Features
 * Use ACL so you can have roles for users.
 * Timezone ready: Work UTC time (GMT+0). Responses with iso8601 date/time format.
 * Pagination ready.
-* Filters.
-* Easy deploy to staging and production environments.
+* Filters (JSON).
+* Easy deploy to staging and production environments with rsync.
 * Internationalization ready. API responses use JSON format to make life easier at the frontend.
 * User profile.
 * Users list.
@@ -184,6 +184,101 @@ Always keep in mind the following:
  * Guest - Public
  * */
  ```
+
+Internationalization
+-------
+API is designed to response with a JSON, so at the FRONTEND you can use lang files like this:
+Put your language files in 'langs' directory at frontend:
+
+* `langs`
+    * `en.json`
+    * `es.json`
+
+Example of language file `en.json` :
+
+```json
+{
+    "common" : {
+        "HEADER_AUTHORIZATION_NOT_SENT": "Header Authorization not sent",
+        "EMPTY_TOKEN_OR_NOT_RECEIVED": "Empty token or not received",
+        "YOUR_USER_ROLE_DOES_NOT_HAVE_THIS_FEATURE": "Your user role does not have this feature",
+        "BAD_TOKEN_GET_A_NEW_ONE": "Bad token, get a new one",
+        "SUCCESSFUL_REQUEST": "Succesfull request",
+        "CREATED_SUCCESSFULLY": "Created successfully",
+        "THERE_IS_ALREADY_A_RECORD_WITH_THAT_NAME": "There is already a record with that name",
+        "UPDATED_SUCCESSFULLY": "Updated successfully",
+        "DELETED_SUCCESSFULLY": "Deleted successfully",
+        "THERE_HAS_BEEN_AN_ERROR": "There has been an error",
+        "INCOMPLETE_DATA_RECEIVED": "Incomplete data received",
+        "NO_RECORDS": "No records",
+        "COULD_NOT_BE_CREATED": "Could not be created",
+        "NOT_FOUND": "Not found",
+        "COULD_NOT_BE_DELETED": "Could not be deleted",
+        "COULD_NOT_BE_UPDATED": "Could not be updated"
+    },
+    "login" : {
+        "USER_IS_NOT_REGISTERED": "User is not registered",
+        "USER_BLOCKED": "User blocked",
+        "USER_UNAUTHORIZED": "User unauthorized",
+        "WRONG_USER_PASSWORD": "Wrong user password",
+        "TOO_MANY_FAILED_LOGIN_ATTEMPTS": "Too many failed login attempts"
+    },
+    "profile" : {
+        "PROFILE_NOT_FOUND": "Profile not found",
+        "PROFILE_UPDATED": "Profile updated",
+        "PROFILE_COULD_NOT_BE_UPDATED": "Profile could not be updated",
+        "ANOTHER_USER_ALREADY_REGISTERED_WITH_THIS_USERNAME": "Another user already registered with this username"
+    },
+    "change-password" : {
+        "PASSWORD_COULD_NOT_BE_UPDATED": "Password could not be updated",
+        "PASSWORD_SUCCESSFULLY_UPDATED": "Password updated successfully",
+        "WRONG_CURRENT_PASSWORD": "Wrong current password"
+    }
+}
+```
+
+Example of language file `es.json` :
+
+```json
+{
+    "common" : {
+        "HEADER_AUTHORIZATION_NOT_SENT": "Cabezote Authorization no enviado",
+        "EMPTY_TOKEN_OR_NOT_RECEIVED": "Token vacío o no recibido",
+        "YOUR_USER_ROLE_DOES_NOT_HAVE_THIS_FEATURE": "Tu rol de usuario no tiene esta característica",
+        "BAD_TOKEN_GET_A_NEW_ONE": "Token errado, solicita uno nuevo",
+        "SUCCESSFUL_REQUEST": "Solicitud exitosa",
+        "CREATED_SUCCESSFULLY": "Creado ecitosamente",
+        "THERE_IS_ALREADY_A_RECORD_WITH_THAT_NAME": "Ya existe un registro con ese nombre",
+        "UPDATED_SUCCESSFULLY": "Actualizado exitosamente",
+        "DELETED_SUCCESSFULLY": "Eliminado exitosamente",
+        "THERE_HAS_BEEN_AN_ERROR": "Ha ocurrido un error",
+        "INCOMPLETE_DATA_RECEIVED": "Datos incompletos recibidos",
+        "NO_RECORDS": "No hay registros",
+        "COULD_NOT_BE_CREATED": "No se pudo crear",
+        "NOT_FOUND": "No encontrado",
+        "COULD_NOT_BE_DELETED": "No pudo ser eliminado",
+        "COULD_NOT_BE_UPDATED": "No pudo ser actualizado"
+    },
+    "login" : {
+        "USER_IS_NOT_REGISTERED": "Usuario no está registrado",
+        "USER_BLOCKED": "Usuario bloqueado",
+        "USER_UNAUTHORIZED": "Usuario no autorizado",
+        "WRONG_USER_PASSWORD": "Contraseña de usuario errada",
+        "TOO_MANY_FAILED_LOGIN_ATTEMPTS": "Demasiados intento de ingreso fallidos"
+    },
+    "profile" : {
+        "PROFILE_NOT_FOUND": "Perfil no encontrado",
+        "PROFILE_UPDATED": "Perfil actualizado",
+        "PROFILE_COULD_NOT_BE_UPDATED": "Perfil no pudo ser actualizado",
+        "ANOTHER_USER_ALREADY_REGISTERED_WITH_THIS_USERNAME": "Otro usuario ya se encuentra registrado con este nombre de usuario"
+    },
+    "change-password" : {
+        "PASSWORD_COULD_NOT_BE_UPDATED": "Contraseña no pudo ser actualizada",
+        "PASSWORD_SUCCESSFULLY_UPDATED": "Contraseña actualizada exitosamente",
+        "WRONG_CURRENT_PASSWORD": "Contraseña actual errada"
+    }
+}
+```
 
 Bugs or improvements
 -------
