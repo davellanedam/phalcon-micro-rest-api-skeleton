@@ -7,8 +7,8 @@ $acl->setDefaultAction(Phalcon\Acl::DENY);
 
 /*
  * ROLES
- * Superuser - can do anything
- * User - can do most things
+ * Superuser - can do anything (Guest, User, and own things)
+ * User - can do most things (Guest and own things)
  * Guest - Public
  * */
 $acl->addRole(new Phalcon\Acl\Role('Guest'));
@@ -23,7 +23,7 @@ $acl->addInherit('Superuser','User');
 
 /*
  * RESOURCES
- * for each user, specify the 'controller' and 'method' they have access to (user=>[controller=>[method,method]],...)
+ * for each user, specify the 'controller' and 'method' they have access to ('user_type'=>['controller'=>['method','method','...']],...)
  * this is created in an array as we later loop over this structure to assign users to resources
  * */
 $arrResources = [

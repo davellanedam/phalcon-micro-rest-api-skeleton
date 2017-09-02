@@ -1,4 +1,4 @@
-Phalcon Micro REST API Basic Project
+Phalcon Micro REST API Basic Project Skeleton
 ====================
 
 [![Author](http://img.shields.io/badge/author-@davellanedam-blue.svg?style=flat-square)](https://twitter.com/davellanedam)
@@ -7,8 +7,8 @@ Phalcon Micro REST API Basic Project
 Getting started
 --------
 
-This is a basic API REST written on [phalconPHP framework](https://github.com/phalcon/cphalcon).
-This project is created to help developers create a basic REST API in an easy way.
+This is a basic API REST skeleton written on [phalconPHP framework](https://github.com/phalcon/cphalcon).
+This project is created to help other developers create a basic REST API in an easy way.
 
 Features
 --------
@@ -20,6 +20,7 @@ Features
 * Pagination ready.
 * Filters.
 * Easy deploy to staging and production environments.
+* Internationalization ready. API responses use JSON format to make life easier at the frontend.
 * User profile.
 * Users list.
 * Cities. (Example of use: call cities API, then send name of the city when creating or updating a user.
@@ -83,10 +84,23 @@ return [
 ];
 ```
 
+### Setting up environments
+The ENV variable is set on an .htaccess file located at `/public/.htaccess` that you must upload **once** to each server you use. Change the environment variable on each server to what you need. To make your life easy this .htaccess file is on the **excluded files list to upload** when you make a deploy. Possible values are: `development`, `staging` and `production`.
+```bash
+############################################################
+# Possible values: development, staging, production        #
+# Change value and upload ONCE to your server              #
+# AVOID re-uploading when deployment, things will go crazy #
+############################################################
+SetEnv APPLICATION_ENV "development"
+```
+
 Usage
 --------------
 
-Once everything is set up to test API routes either use Postman or any other api testing application. Remember to change the URL of the provided example Postman JSON file.
+Once everything is set up to test API routes either use Postman or any other api testing application. Remember to change the URL of the **provided example Postman JSON file**. Default username/password combination for login is `admin/admin1234`.
+
+If you use Postman please go to `manage environments` and then create one for each of your servers. Create a new key `authToken` with `token` value (the token you got from the login process), each time you make a request to the API it will send `Authorization` header with the token value in the request, you can check this on the headers of users or cities endpoints in the Postman example.
 
 This is a REST API, so it works using the following HTTP methods:
 
@@ -94,6 +108,90 @@ This is a REST API, so it works using the following HTTP methods:
 * POST (Create): Creates an item
 * PATCH (Update): Updates an item
 * DELETE: Deletes an item
+
+### Creating new models
+If you need to add more models to the project there´s an easy way to do it with `phalcondevtools` (If you did `composer install`, you already have this).
+Step into a terminal window and open your project folder, then type the following and you are set!
+```bash
+phalcon model --name=your_table_name --schema=your_database --mapcolumn
+```
+
+### Creating new controllers
+If you need to add more controllers to the project there´s an easy way to do it with `phalcondevtools` (If you did `composer install`, you already have this).
+Step into a terminal window and open your project folder, then type the following.
+```bash
+phalcon controller --name=your_controller_name_without_the_controller_word
+```
+When it´s done, it creates you new controller, but if you want to use `ControllerBase.php` functions in your newly created controller you must change the following line in the new controller:
+```php
+class MyNewController extends \Phalcon\Mvc\Controller
+```
+to this:
+```php
+class MyNewController extends ControllerBase
+```
+
+### Creating new routes
+You can add more routes to your project by adding them into the `/app.php` file. This is an example of `/users` routes:
+```php
+/**
+* Users
+*/
+$users = new MicroCollection();
+$users->setHandler('UsersController', true);
+$users->setPrefix('/users');
+// Gets all users
+$users->get('/', 'index');
+// Creates a new user
+$users->post('/create', 'create');
+// Gets user based on unique key
+$users->get('/get/{id}', 'get');
+// Updates user based on unique key
+$users->patch('/update/{id}', 'update');
+// Changes user password
+$users->patch('/change-password/{id}', 'changePassword');
+// Adds users routes to $app
+$app->mount($users);
+```
+
+Remember to add the controller (without the controller word) and methods of endpoints to the `/config/acl.php`file. Otherwise you will get this response from the API: `"common.YOUR_USER_ROLE_DOES_NOT_HAVE_THIS_FEATURE",`
+```php
+/*
+ * RESOURCES
+ * for each user, specify the 'controller' and 'method' they have access to ('user_type'=>['controller'=>['method','method','...']],...)
+ * */
+$arrResources = [
+    'Guest'=>[
+        'Users'=>['login'],
+    ],
+    'User'=>[
+        'Profile'=>['index','update','changePassword'],
+        'Users'=>['index','create','get','search','update','logout'],
+        'Cities'=>['index','create','get','ajax','update','delete'],
+    ],
+    'Superuser'=>[
+        'Users'=>['changePassword'],
+    ]
+];
+```
+
+Always keep in mind the following:
+```php
+/*
+ * ROLES
+ * Superuser - can do anything (Guest, User, and own things)
+ * User - can do most things (Guest and own things)
+ * Guest - Public
+ * */
+ ```
+
+Bugs or improvements
+-------
+Feel free to report any bugs or improvements.
+
+I love this! How can I help?
+-------
+It´s amazing you feel like that! Send me a tweet https://twitter.com/davellanedam, share this with others, or if you feel really thankful you can always buy me a beer! Enjoy!
 
 License
 -------
