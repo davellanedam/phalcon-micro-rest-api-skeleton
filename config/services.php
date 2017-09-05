@@ -70,3 +70,19 @@ $di->setShared('db', function () use ($config) {
 
     return $connection;
 });
+
+/**
+ * Another Database connection is created based in the parameters defined in the configuration file
+ */
+$di->setShared('db_log', function () use ($config) {
+    $dbConfig = $config->log_database->toArray();
+    $adapter = $dbConfig['adapter'];
+    unset($dbConfig['adapter']);
+
+    $class = 'Phalcon\Db\Adapter\Pdo\\' . $adapter;
+
+    $connection = new $class($dbConfig);
+    $connection->setNestedTransactionsWithSavepoints(true);
+
+    return $connection;
+});
