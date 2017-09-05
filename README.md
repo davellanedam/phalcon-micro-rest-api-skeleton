@@ -13,7 +13,7 @@ This project is created to help other developers create a basic REST API in an e
 Features
 --------
 
-* Provide login with `Authorization` header with value `Basic username:password` where `username:password` **MUST BE ENCODED** with `Base64`.
+* JWT Tokens, provide login with `Authorization` header with value `Basic username:password` where `username:password` **MUST BE ENCODED** with `Base64`.
 * Make requests with a token after login with `Authorization` header with value `Bearer yourToken` where `yourToken` is the **signed and encrypted token** given in the response from the login process.
 * Use ACL so you can have roles for users.
 * Timezone ready: Work UTC time (GMT+0). Responses with iso8601 date/time format.
