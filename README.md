@@ -7,8 +7,9 @@ Phalcon Micro REST API Basic Project Skeleton
 Getting started
 --------
 
-This is a basic API REST skeleton written on the **ultra hyper mega fastest framework for PHP [phalcon](https://github.com/phalcon/cphalcon)**.
-This project is created to help other developers create a basic REST API in an easy way.
+This is a basic API REST skeleton written on the **ultra hyper mega fastest framework for PHP [phalcon](https://github.com/phalcon/cphalcon)**. A full-stack PHP framework delivered as a C-extension. Its innovative architecture makes Phalcon the fastest PHP framework ever built!
+
+This project is created to help other developers create a **basic REST API in an easy way with phalcon**. This basic example shows how powerful and simple phalcon can be. Do you want to contribute? Pull requests are always welcome to show more features of phalcon.
 
 Features
 --------
@@ -332,11 +333,11 @@ schemas/
 
 Bugs or improvements
 -------
-Feel free to report any bugs or improvements.
+Feel free to report any bugs or improvements. Pull requests are always welcome.
 
 I love this! How can I help?
 -------
-It´s amazing you feel like that! Send me a tweet https://twitter.com/davellanedam, share this with others, or if you feel really thankful you can always buy me a beer! Enjoy!
+It´s amazing you feel like that! Send me a tweet https://twitter.com/davellanedam, share this with others, make a pull request or if you feel really thankful you can always buy me a beer! Enjoy!
 
 License
 -------
