@@ -20,12 +20,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table city
+# Dump of table cities
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `city`;
+DROP TABLE IF EXISTS `cities`;
 
-CREATE TABLE `city` (
+CREATE TABLE `cities` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) DEFAULT NULL,
   `country` varchar(250) DEFAULT NULL,
@@ -34,10 +34,10 @@ CREATE TABLE `city` (
   KEY `country` (`country`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `city` WRITE;
-/*!40000 ALTER TABLE `city` DISABLE KEYS */;
+LOCK TABLES `cities` WRITE;
+/*!40000 ALTER TABLE `cities` DISABLE KEYS */;
 
-INSERT INTO `city` (`id`, `name`, `country`)
+INSERT INTO `cities` (`id`, `name`, `country`)
 VALUES
 	(1,'Bogotá','Colombia'),
 	(2,'Medellín','Colombia'),

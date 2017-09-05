@@ -36,14 +36,14 @@ class Cities extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'city';
+        return 'cities';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return City[]
+     * @return Cities[]
      */
     public static function find($parameters = null)
     {
@@ -54,7 +54,7 @@ class Cities extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return City
+     * @return Cities
      */
     public static function findFirst($parameters = null)
     {
