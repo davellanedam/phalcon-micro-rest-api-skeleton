@@ -3,6 +3,7 @@ Phalcon Micro REST API Basic Project Skeleton
 
 [![Author](http://img.shields.io/badge/author-@davellanedam-blue.svg?style=flat-square)](https://twitter.com/davellanedam)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/davellanedam/phalcon-micro-api/blob/master/LICENSE)
+[![Release](https://img.shields.io/github/release/davellanedam/phalcon-micro-rest-api-skeleton.svg?style=flat-square)](https://github.com/davellanedam/phalcon-micro-api/releases)
 
 Getting started
 --------
