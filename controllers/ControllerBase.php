@@ -10,6 +10,37 @@ class ControllerBase extends Controller
      */
 
     /**
+     * Register LOG in another DB
+     */
+    public function registerLog() {
+        // gets user token
+        $token_decoded = $this->decodeToken($this->getToken());
+
+        // Gets URL route from request
+        $url = $this->request->get();
+
+        // Initiates log db transaction
+        $this->db_log->begin();
+        $newLog = new Logs();
+        $newLog->username = $token_decoded->username_username; // gets username
+        $newLog->route = $url['_url']; // gets route
+        $newLog->date = $this->getNowDateTime();
+        if (!$newLog->save()) {
+            // rollback transaction
+            $this->db_log->rollback();
+            // Send errors
+            $errors = array();
+            foreach ($newLog->getMessages() as $message) {
+                $errors[] = $message->getMessage();
+            }
+            $this->buildErrorResponse(400, 'common.COULD_NOT_BE_CREATED', $errors);
+        } else {
+            // Commit the transaction
+            $this->db_log->commit();
+        }
+    }
+
+    /**
      * Generated NOW datetime based on a timezone
      */
     public function getNowDateTime() {
