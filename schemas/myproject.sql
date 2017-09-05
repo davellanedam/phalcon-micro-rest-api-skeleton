@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.35)
 # Database: myproject
-# Generation Time: 2017-08-31 04:09:00 +0000
+# Generation Time: 2017-09-05 02:02:50 +0000
 # ************************************************************
 
 
@@ -44,8 +44,7 @@ VALUES
 	(3,'Cali','Colombia'),
 	(4,'Barranquilla','Colombia'),
 	(5,'Cartagena','Colombia'),
-	(6,'Bucaramanga','Colombia'),
-	(8,'Floridablanca','Colombia');
+	(6,'Bucaramanga','Colombia');
 
 /*!40000 ALTER TABLE `city` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -107,16 +106,6 @@ CREATE TABLE `users_access` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `users_access` WRITE;
-/*!40000 ALTER TABLE `users_access` DISABLE KEYS */;
-
-INSERT INTO `users_access` (`id`, `username`, `ip`, `browser`, `date`, `domain`, `country`)
-VALUES
-	(1,'admin','127.0.0.1','PostmanRuntime/6.3.2','2017-08-31 02:05:22','localhost','XX'),
-	(2,'admin','127.0.0.1','PostmanRuntime/6.3.2','2017-08-31 02:08:28','localhost','XX');
-
-/*!40000 ALTER TABLE `users_access` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 
