@@ -118,7 +118,7 @@
 				{
 					"name": "/cities/update/{id}",
 					"request": {
-						"url": "http://api.myproject.local/cities/update/8",
+						"url": "http://api.myproject.local/cities/update/7",
 						"method": "PATCH",
 						"header": [
 							{
@@ -267,6 +267,12 @@
 									"key": "city",
 									"value": "Bogotá",
 									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "asd@asd.com",
+									"description": "",
+									"type": "text"
 								}
 							]
 						},
@@ -291,12 +297,12 @@
 							"urlencoded": [
 								{
 									"key": "current_password",
-									"value": "test123",
+									"value": "admin1234",
 									"type": "text"
 								},
 								{
 									"key": "new_password",
-									"value": "test123",
+									"value": "admin1234",
 									"type": "text"
 								}
 							]
@@ -558,7 +564,7 @@
 				{
 					"name": "/users/change-password/{id}",
 					"request": {
-						"url": "http://api.myproject.local/users/change-password/5",
+						"url": "http://api.myproject.local/users/change-password/2",
 						"method": "PATCH",
 						"header": [
 							{
@@ -572,7 +578,7 @@
 							"urlencoded": [
 								{
 									"key": "newPassword",
-									"value": "test123",
+									"value": "admin1234",
 									"type": "text"
 								}
 							]
