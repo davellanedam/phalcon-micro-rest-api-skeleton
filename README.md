@@ -62,7 +62,7 @@ composer update
 There are 3 files in the `/myproject/config` directory, (development, staging and production) each one is meant to be used on different environments to make your life easier on deployment.
 
 1. Create a MySQL database with your custom name and then import `myproject.sql` (in the `/schemas` directory)
-2. Create a second MySQL database for logs with name `myproject_log` and then import `myproject_log.sql` (in the `/schemas` directory)
+2. Create a second MySQL database with your custom name and then import `myproject_log.sql` (in the `/schemas` directory).
 3. Open `/myproject/config/server.development.php` and setup your DEVELOPMENT (local) database connection credentials
 4. Open `/myproject/config/server.staging.php` and setup your STAGING (testing server) database connection credentials
 5. Open `/myproject/config/server.production.php` and setup your PRODUCTION (production server) database connection credentials

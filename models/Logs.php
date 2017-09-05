@@ -32,8 +32,7 @@ class Logs extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setConnectionService('db_log');
-        $this->setSchema('myproject_log');
+        $this->setConnectionService('db_log'); // Connection service for log database
     }
 
     /**
