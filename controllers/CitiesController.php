@@ -121,6 +121,8 @@ class CitiesController extends ControllerBase
                 } else {
                     // Commit the transaction
                     $this->db->commit();
+                    // Register log in another DB
+                    $this->registerLog();
 
                     $data = $newCity->toArray();
                     $this->buildSuccessResponse(201, 'common.CREATED_SUCCESSFULLY', $data);
@@ -212,6 +214,8 @@ class CitiesController extends ControllerBase
                     } else {
                         // Commit the transaction
                         $this->db->commit();
+                        // Register log in another DB
+                        $this->registerLog();
 
                         $data = $city->toArray();
                         $this->buildSuccessResponse(200, 'common.UPDATED_SUCCESSFULLY', $data);
@@ -256,6 +260,8 @@ class CitiesController extends ControllerBase
             } else {
                 // Commit the transaction
                 $this->db->commit();
+                // Register log in another DB
+                $this->registerLog();
 
                 $this->buildSuccessResponse(200, 'common.DELETED_SUCCESSFULLY');
             }

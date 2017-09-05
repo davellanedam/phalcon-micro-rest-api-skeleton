@@ -95,6 +95,10 @@ class ProfileController extends ControllerBase
                         )
                     );
                     $data = $user->toArray();
+
+                    // Register log in another DB
+                    $this->registerLog();
+
                     $this->buildSuccessResponse(200, "profile.PROFILE_UPDATED", $data);
                 }
 
@@ -151,6 +155,9 @@ class ProfileController extends ControllerBase
                     } else {
                         // Commit the transaction
                         $this->db->commit();
+
+                        // Register log in another DB
+                        $this->registerLog();
 
                         $this->buildSuccessResponse(200, "change-password.PASSWORD_SUCCESSFULLY_UPDATED");
                     }

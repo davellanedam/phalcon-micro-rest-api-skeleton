@@ -245,6 +245,9 @@ class UsersController extends ControllerBase
                     // Commit the transaction
                     $this->db->commit();
 
+                    // Register log in another DB
+                    $this->registerLog();
+
                     $data = $newUser->toArray();
                     // removes DB autoincrement id from response
                     unset($data['password']);
@@ -373,6 +376,9 @@ class UsersController extends ControllerBase
                     // Commit the transaction
                     $this->db->commit();
 
+                    // Register log in another DB
+                    $this->registerLog();
+
                     $data = $user->toArray();
                     // removes DB autoincrement id from response
                     unset($data['password']);
@@ -424,6 +430,9 @@ class UsersController extends ControllerBase
                 } else {
                     // Commit the transaction
                     $this->db->commit();
+
+                    // Register log in another DB
+                    $this->registerLog();
 
                     $this->buildSuccessResponse(200, "change-password.PASSWORD_SUCCESSFULLY_UPDATED");
                 }
