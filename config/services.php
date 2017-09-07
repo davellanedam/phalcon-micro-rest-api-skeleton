@@ -49,10 +49,11 @@ $di->set('mycrypt', function () use ($config) {
 }, true);
 
 /**
- * tokenSecret
+ * tokenConfig
  */
-$di->setShared('tokenSecret', function () use ($config) {
-    return $config->get('authentication')->secret;
+$di->setShared('tokenConfig', function () use ($config) {
+    $tokenConfig = $config->authentication->toArray();
+    return $tokenConfig;
 });
 
 /**
