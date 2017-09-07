@@ -114,7 +114,15 @@ class indexController extends ControllerBase
                         "lastname" => $user->lastname,
                     );
 
+                    // issue at time and expires (token)
+                    $iat = strtotime($this->getNowDateTime());
+                    $exp = strtotime("+" . $this->tokenConfig['expiration_time'] . " seconds", $iat);
+
                     $token_data = array(
+                        "iss" => $this->tokenConfig['iss'],
+                        "aud" => $this->tokenConfig['aud'],
+                        "iat" => $iat,
+                        "exp" => $exp,
                         "username_username" => $user->username,
                         "username_firstname" => $user->firstname,
                         "username_lastname" => $user->lastname,
