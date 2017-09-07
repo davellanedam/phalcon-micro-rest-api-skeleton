@@ -132,6 +132,7 @@ class indexController extends ControllerBase
                     // Encode token
                     $token = $this->encodeToken($token_data);
 
+                    // Encrypt token
                     $token = $this->mycrypt->encryptBase64($token);
 
                     $data = array(
