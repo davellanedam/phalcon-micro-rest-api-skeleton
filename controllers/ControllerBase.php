@@ -150,6 +150,7 @@ class ControllerBase extends Controller
     public function encodeToken($data) {
         // Encode token
         $token_encoded = JWT::encode($data, $this->tokenConfig['secret']);
+        $token_encoded = $this->mycrypt->encryptBase64($token_encoded);
         return $token_encoded;
     }
 
