@@ -145,25 +145,11 @@ class ControllerBase extends Controller
     }
 
     /**
-     * Build verify token.
-     */
-    public function setVerifyToken($id, $key) {
-        // Build token data
-        $token_data = array(
-            "id" => $id,
-            "key" => $key,
-        );
-        // Encode token
-        $token = JWT::encode($token_data, $this->tokenSecret);
-        return $token;
-    }
-
-    /**
      * Encode token.
      */
     public function encodeToken($data) {
         // Encode token
-        $token_encoded = JWT::encode($data, $this->tokenSecret);
+        $token_encoded = JWT::encode($data, $this->tokenConfig['secret']);
         return $token_encoded;
     }
 
@@ -173,7 +159,7 @@ class ControllerBase extends Controller
     public function decodeToken($token) {
         // Decode token
         $token = $this->mycrypt->decryptBase64($token);
-        $token = JWT::decode($token, $this->tokenSecret, array('HS256'));
+        $token = JWT::decode($token, $this->tokenConfig['secret'], array('HS256'));
         return $token;
     }
 
