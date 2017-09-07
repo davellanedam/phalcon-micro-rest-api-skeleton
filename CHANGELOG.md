@@ -2,6 +2,8 @@
 
 * Service to get token config
 * ENV config added issuer and audience
+* Call settings of token in encode/decode functions
+* When building token added issuer, audience, issued at time and expiration.
 
 ## 0.1.1 (Sep 5, 2017)
 
