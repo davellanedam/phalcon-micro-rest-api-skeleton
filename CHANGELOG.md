@@ -1,3 +1,7 @@
+## 0.2.2 (Sep 7, 2017)
+
+* Token encryption moved to ControllerBase function
+
 ## 0.2.1 (Sep 6, 2017)
 
 * README.md updated
