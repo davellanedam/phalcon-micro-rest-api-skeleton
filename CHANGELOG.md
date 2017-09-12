@@ -1,3 +1,7 @@
+## 0.3.0 (Sep 12, 2017)
+
+* JWT service added
+
 ## 0.2.3 (Sep 12, 2017)
 
 * Fix index controller getting now datetime
