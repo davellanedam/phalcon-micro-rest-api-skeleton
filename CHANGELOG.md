@@ -1,3 +1,7 @@
+## 0.2.3 (Sep 12, 2017)
+
+* Fix index controller getting now datetime
+
 ## 0.2.2 (Sep 7, 2017)
 
 * Token encryption moved to ControllerBase function
