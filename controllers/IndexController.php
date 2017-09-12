@@ -47,7 +47,7 @@ class indexController extends ControllerBase
             } else {
                 // check if user is blocked
                 $block_expires = strtotime($user->block_expires);
-                $now = $this->getNowDateTime();
+                $now = strtotime($this->getNowDateTime());
                 if ($block_expires > $now) {
                     $this->buildErrorResponse(403, "login.USER_BLOCKED");
                 } else if ($user->authorised == 0) {
