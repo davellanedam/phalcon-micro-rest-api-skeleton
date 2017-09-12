@@ -10,6 +10,7 @@ use Phalcon\Di\FactoryDefault;
 use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Crypt;
 use Phalcon\Mvc\Model\Manager as ModelsManager;
+use Firebase\JWT\JWT as JWT;
 
 $di = new FactoryDefault();
 
@@ -47,6 +48,13 @@ $di->set('mycrypt', function () use ($config) {
     $crypt->setKey($config->get('authentication')->encryption_key);
     return $crypt;
 }, true);
+
+/**
+ * JWT service
+ */
+$di->setShared('jwt', function() {
+    return new JWT();
+});
 
 /**
  * tokenConfig

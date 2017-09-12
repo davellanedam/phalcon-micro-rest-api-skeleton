@@ -1,7 +1,6 @@
 <?php
 
 use Phalcon\Mvc\Controller;
-use Firebase\JWT\JWT;
 
 class ControllerBase extends Controller
 {
@@ -149,7 +148,7 @@ class ControllerBase extends Controller
      */
     public function encodeToken($data) {
         // Encode token
-        $token_encoded = JWT::encode($data, $this->tokenConfig['secret']);
+        $token_encoded = $this->jwt->encode($data, $this->tokenConfig['secret']);
         $token_encoded = $this->mycrypt->encryptBase64($token_encoded);
         return $token_encoded;
     }
@@ -160,7 +159,7 @@ class ControllerBase extends Controller
     public function decodeToken($token) {
         // Decode token
         $token = $this->mycrypt->decryptBase64($token);
-        $token = JWT::decode($token, $this->tokenConfig['secret'], array('HS256'));
+        $token = $this->jwt->decode($token, $this->tokenConfig['secret'], array('HS256'));
         return $token;
     }
 
