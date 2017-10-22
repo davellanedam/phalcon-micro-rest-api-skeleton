@@ -1,3 +1,7 @@
+## 0.4.0 (Oct 22, 2017)
+
+* Make HTTPS redirect host and port agnostic
+
 ## 0.3.0 (Sep 12, 2017)
 
 * JWT service added
