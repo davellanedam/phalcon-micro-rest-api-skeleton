@@ -5,11 +5,11 @@
 
     #*************************************************************
     #*   To force SECURE (https) server: remove the "#" symbol   *
-    #*   from the following 2 lines and replace URL with yours   *
+    #*   from the following 2 lines                              *
     #*************************************************************
 
-    #RewriteCond %{SERVER_PORT} !443
-    #RewriteRule ^(.*)$ https://api.myserver.com/$1 [R,L]
+    #RewriteCond %{HTTPS} off
+    #RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     RewriteRule ^$ public/ [L]
     RewriteRule (.*) public/$1 [L]
