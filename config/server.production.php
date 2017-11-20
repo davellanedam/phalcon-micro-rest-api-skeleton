@@ -23,5 +23,5 @@ return [
         'expiration_time' => 86400 * 7, // One week till token expires
         'iss' => "myproject", // Token issuer eg. www.myproject.com
         'aud' => "myproject", // Token audience eg. www.myproject.com
-    ]
+    ],
 ];

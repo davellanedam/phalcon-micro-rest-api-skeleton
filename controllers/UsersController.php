@@ -21,7 +21,7 @@ class UsersController extends ControllerBase
 
         // Handles Sort querystring (order_by)
         if ($this->request->get('sort') != null && $this->request->get('order') != null) {
-            $order_by = $this->request->get('sort').' '.$this->request->get('order');
+            $order_by = $this->request->get('sort') . ' ' . $this->request->get('order');
         }
 
         // Gets rows_per_page
@@ -40,14 +40,14 @@ class UsersController extends ControllerBase
         $conditions = [];
         $parameters = [];
 
-        if ( $this->request->get('filter') == null ) {
+        if ($this->request->get('filter') == null) {
             $conditions = implode(' AND ', $conditions);
         }
 
         // Filters for select with left joins
-        if ( $this->request->get('filter') != null ) {
+        if ($this->request->get('filter') != null) {
             $filter = json_decode($this->request->get('filter'), true);
-            foreach($filter as $key => $value) {
+            foreach ($filter as $key => $value) {
 
                 $tmp_conditions = [];
                 // special case filtering LEFT JOINS
@@ -107,9 +107,9 @@ class UsersController extends ControllerBase
 
                 $tmp_filter = explode(' OR ', $tmp_filter);
 
-                foreach($tmp_filter as $filter_value) {
+                foreach ($tmp_filter as $filter_value) {
                     array_push($tmp_conditions, $filter_value . " LIKE :" . str_replace(".", "_", $key) . ":");
-                    $parameters = $this->array_push_assoc($parameters, str_replace(".", "_", $key), "%".trim($value)."%");
+                    $parameters = $this->array_push_assoc($parameters, str_replace(".", "_", $key), "%" . trim($value) . "%");
                 }
 
                 $tmp_conditions = implode(' OR ', $tmp_conditions);
@@ -126,7 +126,7 @@ class UsersController extends ControllerBase
 
         // Search DB
         $users = Users::query()
-        ->columns(['Users.id', 'Users.username', 'Users.firstname', 'Users.lastname', 'Users.birthday', 'Users.email', 'Users.phone', 'Users.mobile', 'Users.level', 'Users.city', 'Users.country', 'Users.authorised', 'ua.date AS lastAccess_date', 'ua.ip AS lastAccess_ip', 'ua.domain AS lastAccess_domain', 'ua.browser AS lastAccess_browser'])
+            ->columns(['Users.id', 'Users.username', 'Users.firstname', 'Users.lastname', 'Users.birthday', 'Users.email', 'Users.phone', 'Users.mobile', 'Users.level', 'Users.city', 'Users.country', 'Users.authorised', 'ua.date AS lastAccess_date', 'ua.ip AS lastAccess_ip', 'ua.domain AS lastAccess_domain', 'ua.browser AS lastAccess_browser'])
             ->leftJoin('UsersAccess', 'Users.username = ua.username', 'ua')
             ->where($conditions)
             ->bind($parameters)
@@ -160,7 +160,7 @@ class UsersController extends ControllerBase
                         'date' => $this->utc_to_iso8601($value['lastAccess_date']),
                         'ip' => $value['lastAccess_ip'],
                         'domain' => $value['lastAccess_domain'],
-                        'browser' => $value['lastAccess_browser']
+                        'browser' => $value['lastAccess_browser'],
                     );
                     $value = $this->array_push_assoc($value, 'last_access', $this_user_last_access);
                 }
@@ -190,7 +190,7 @@ class UsersController extends ControllerBase
         // Start a transaction
         $this->db->begin();
 
-        if ( empty($this->request->getPost("username")) || empty($this->request->getPost("firstname")) || empty($this->request->getPost("newPassword"))  || empty($this->request->getPost("email")) ) {
+        if (empty($this->request->getPost("username")) || empty($this->request->getPost("firstname")) || empty($this->request->getPost("newPassword")) || empty($this->request->getPost("email"))) {
             $this->buildErrorResponse(400, "common.INCOMPLETE_DATA_RECEIVED");
         } else {
             $username = trim($this->request->getPost("username"));
@@ -200,12 +200,12 @@ class UsersController extends ControllerBase
             // checks if user already exists
             $conditions = "username = :username:";
             $parameters = array(
-                "username" => $username
+                "username" => $username,
             );
             $user = Users::findFirst(
                 array(
                     $conditions,
-                    "bind" => $parameters
+                    "bind" => $parameters,
                 )
             );
             if ($user) {
@@ -270,7 +270,7 @@ class UsersController extends ControllerBase
 
         $conditions = "id = :id:";
         $parameters = array(
-            "id" => $id
+            "id" => $id,
         );
         $user = Users::findFirst(
             array(
@@ -286,7 +286,7 @@ class UsersController extends ControllerBase
             // finds if user has last access.
             $conditions = "username = :username:";
             $parameters = array(
-                "username" => $user->username
+                "username" => $user->username,
             );
             $last_access = UsersAccess::find(
                 array(
@@ -294,7 +294,7 @@ class UsersController extends ControllerBase
                     "bind" => $parameters,
                     'columns' => 'date, ip, domain, browser',
                     'order' => 'id DESC',
-                    'limit' => 10
+                    'limit' => 10,
                 )
             );
             if ($last_access) {
@@ -306,7 +306,7 @@ class UsersController extends ControllerBase
                         'date' => $this->utc_to_iso8601($value_last_access['date']),
                         'ip' => $value_last_access['ip'],
                         'domain' => $value_last_access['domain'],
-                        'browser' => $value_last_access['browser']
+                        'browser' => $value_last_access['browser'],
                     );
                     $array[] = $this_user_last_access;
                 }
@@ -334,18 +334,18 @@ class UsersController extends ControllerBase
 
         $conditions = "id = :id:";
         $parameters = array(
-            "id" => $id
+            "id" => $id,
         );
         $user = Users::findFirst(
             array(
                 $conditions,
-                "bind" => $parameters
+                "bind" => $parameters,
             )
         );
         if (!$user) {
             $this->buildErrorResponse(404, "common.NOT_FOUND");
         } else {
-            if ( empty($this->request->getPut("firstname")) ) {
+            if (empty($this->request->getPut("firstname"))) {
                 $this->buildErrorResponse(400, "common.INCOMPLETE_DATA_RECEIVED");
             } else {
                 $user->firstname = trim($this->request->getPut("firstname"));
@@ -401,17 +401,17 @@ class UsersController extends ControllerBase
         // Start a transaction
         $this->db->begin();
 
-        if ( empty($this->request->getPut("newPassword")) ) {
+        if (empty($this->request->getPut("newPassword"))) {
             $this->buildErrorResponse(400, "common.INCOMPLETE_DATA_RECEIVED");
         } else {
             $conditions = "id = :id:";
             $parameters = array(
-                "id" => $id
+                "id" => $id,
             );
             $user = Users::findFirst(
                 array(
                     $conditions,
-                    "bind" => $parameters
+                    "bind" => $parameters,
                 )
             );
             if (!$user) {

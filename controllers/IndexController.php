@@ -20,7 +20,7 @@ class indexController extends ControllerBase
         $this->initializePost();
 
         $headers = $this->request->getHeaders();
-        if (!isset($headers["Authorization"]) || empty($headers["Authorization"])){
+        if (!isset($headers["Authorization"]) || empty($headers["Authorization"])) {
             //checks if Authorization header exists and it´s not empty
             $this->buildErrorResponse(403, "common.HEADER_AUTHORIZATION_NOT_SENT");
         } else {
@@ -33,12 +33,12 @@ class indexController extends ControllerBase
             // do query
             $conditions = "username = :username:";
             $parameters = array(
-                "username" => $username
+                "username" => $username,
             );
             $user = Users::findFirst(
                 array(
                     $conditions,
-                    "bind" => $parameters
+                    "bind" => $parameters,
                 )
             );
             // User exists?
@@ -127,7 +127,7 @@ class indexController extends ControllerBase
                         "username_firstname" => $user->firstname,
                         "username_lastname" => $user->lastname,
                         "username_level" => $user->level,
-                        "rand" => rand().microtime()
+                        "rand" => rand() . microtime(),
                     );
 
                     // Encode token
@@ -135,7 +135,7 @@ class indexController extends ControllerBase
 
                     $data = array(
                         "token" => $token,
-                        "user" => $user_data
+                        "user" => $user_data,
                     );
                     // Resets login_attempts
                     $user->login_attempts = 0;
@@ -151,18 +151,18 @@ class indexController extends ControllerBase
                         // Registers new user access
                         $newAccess = new UsersAccess();
                         $newAccess->username = $user->username;
-                        if (isset($headers["Http-Client-Ip"]) || !empty($headers["Http-Client-Ip"])){
+                        if (isset($headers["Http-Client-Ip"]) || !empty($headers["Http-Client-Ip"])) {
                             $newAccess->ip = $headers["Http-Client-Ip"];
                         } else {
                             $newAccess->ip = $this->request->getClientAddress();
                         }
-                        if (isset($headers["Http-Client-Domain"]) || !empty($headers["Http-Client-Domain"])){
+                        if (isset($headers["Http-Client-Domain"]) || !empty($headers["Http-Client-Domain"])) {
                             $newAccess->domain = $headers["Http-Client-Domain"];
                         } else {
                             $newAccess->domain = gethostbyaddr($this->request->getClientAddress());
                         }
                         // Gets country from CloudFlare (if you use it)
-                        if (isset($headers["Http-Client-Country"]) || !empty($headers["Http-Client-Country"])){
+                        if (isset($headers["Http-Client-Country"]) || !empty($headers["Http-Client-Country"])) {
                             $newAccess->country = $headers["Http-Client-Country"];
                         } else {
                             if (isset($_SERVER["HTTP_CF_IPCOUNTRY"])) {

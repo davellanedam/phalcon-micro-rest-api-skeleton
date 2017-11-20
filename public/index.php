@@ -18,27 +18,27 @@ define('APP_PATH', realpath('..'));
 
 try {
 
-    require __DIR__.'/../vendor/autoload.php';
+    require __DIR__ . '/../vendor/autoload.php';
 
     /*
      * Read the configuration
      */
-    $config = include __DIR__.'/../config/config.php';
+    $config = include __DIR__ . '/../config/config.php';
 
     /**
      * Include Autoloader.
      */
-    include APP_PATH.'/config/loader.php';
+    include APP_PATH . '/config/loader.php';
 
     /**
      * Include Services.
      */
-    include APP_PATH.'/config/services.php';
+    include APP_PATH . '/config/services.php';
 
     /**
      * Include ACL.
      */
-    include APP_PATH.'/config/acl.php';
+    include APP_PATH . '/config/acl.php';
 
     /*
      * Starting the application
@@ -49,7 +49,7 @@ try {
     /**
      * Include Application.
      */
-    include APP_PATH.'/app.php';
+    include APP_PATH . '/app.php';
 
     /*
      * Handle the request
@@ -58,7 +58,7 @@ try {
 
 } catch (\Exception $e) {
     if (APPLICATION_ENV === 'development') {
-        echo $e->getMessage().'<br>';
-        echo '<pre>'.$e->getTraceAsString().'</pre>';
+        echo $e->getMessage() . '<br>';
+        echo '<pre>' . $e->getTraceAsString() . '</pre>';
     }
 }

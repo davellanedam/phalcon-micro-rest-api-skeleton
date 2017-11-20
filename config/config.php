@@ -13,8 +13,8 @@ $config = new \Phalcon\Config([
         'migrationsDir' => APP_PATH . '/migrations/',
         'viewsDir' => APP_PATH . '/views/',
         'middlewaresDir' => APP_PATH . '/middlewares/',
-        'baseUri' => '/'
-    ]
+        'baseUri' => '/',
+    ],
 ]);
 
 $configOverride = new \Phalcon\Config(include_once __DIR__ . "/../config/server." . APPLICATION_ENV . ".php");

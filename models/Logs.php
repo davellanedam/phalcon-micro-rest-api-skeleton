@@ -79,7 +79,7 @@ class Logs extends \Phalcon\Mvc\Model
             'id' => 'id',
             'username' => 'username',
             'route' => 'route',
-            'date' => 'date'
+            'date' => 'date',
         );
     }
 

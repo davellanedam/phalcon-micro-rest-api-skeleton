@@ -16,10 +16,10 @@ $acl->addRole(new Phalcon\Acl\Role('User'));
 $acl->addRole(new Phalcon\Acl\Role('Superuser'));
 
 // User can do everything a Guest can do
-$acl->addInherit('User','Guest');
+$acl->addInherit('User', 'Guest');
 // Admin can do everything a User can do
-$acl->addInherit('Superuser','Guest');
-$acl->addInherit('Superuser','User');
+$acl->addInherit('Superuser', 'Guest');
+$acl->addInherit('Superuser', 'User');
 
 /*
  * RESOURCES
@@ -27,22 +27,22 @@ $acl->addInherit('Superuser','User');
  * this is created in an array as we later loop over this structure to assign users to resources
  * */
 $arrResources = [
-    'Guest'=>[
-        'Users'=>['login'],
+    'Guest' => [
+        'Users' => ['login'],
     ],
-    'User'=>[
-        'Profile'=>['index','update','changePassword'],
-        'Users'=>['index','create','get','search','update','logout'],
-        'Cities'=>['index','create','get','ajax','update','delete'],
+    'User' => [
+        'Profile' => ['index', 'update', 'changePassword'],
+        'Users' => ['index', 'create', 'get', 'search', 'update', 'logout'],
+        'Cities' => ['index', 'create', 'get', 'ajax', 'update', 'delete'],
     ],
-    'Superuser'=>[
-        'Users'=>['changePassword'],
-    ]
+    'Superuser' => [
+        'Users' => ['changePassword'],
+    ],
 ];
 
-foreach($arrResources as $arrResource){
-    foreach($arrResource as $controller=>$arrMethods){
-        $acl->addResource(new Phalcon\Acl\Resource($controller),$arrMethods);
+foreach ($arrResources as $arrResource) {
+    foreach ($arrResource as $controller => $arrMethods) {
+        $acl->addResource(new Phalcon\Acl\Resource($controller), $arrMethods);
     }
 }
 
@@ -54,20 +54,20 @@ foreach ($acl->getRoles() as $objRole) {
 
     // everyone gets access to global resources
     foreach ($arrResources['Guest'] as $resource => $method) {
-        $acl->allow($roleName,$resource,$method);
+        $acl->allow($roleName, $resource, $method);
     }
 
     // users
-    if($roleName == 'User'){
+    if ($roleName == 'User') {
         foreach ($arrResources['User'] as $resource => $method) {
-            $acl->allow($roleName,$resource,$method);
+            $acl->allow($roleName, $resource, $method);
         }
     }
 
     // admins
-    if($roleName == 'Superuser'){
+    if ($roleName == 'Superuser') {
         foreach ($arrResources['Superuser'] as $resource => $method) {
-            $acl->allow($roleName,$resource,$method);
+            $acl->allow($roleName, $resource, $method);
         }
     }
 }

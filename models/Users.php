@@ -183,7 +183,7 @@ class Users extends \Phalcon\Mvc\Model
             'birthday' => 'birthday',
             'authorised' => 'authorised',
             'block_expires' => 'block_expires',
-            'login_attempts' => 'login_attempts'
+            'login_attempts' => 'login_attempts',
         );
     }
 

@@ -1,24 +1,24 @@
 <?php
 /**
-* Local variables
-* @var \Phalcon\Mvc\Micro $app
-*/
+ * Local variables
+ * @var \Phalcon\Mvc\Micro $app
+ */
 
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\Micro\Collection as MicroCollection;
 
 /**
-* ACL checks
-*/
+ * ACL checks
+ */
 $app->before(new AccessMiddleware());
 
 /**
-* Insert your Routes below
-*/
+ * Insert your Routes below
+ */
 
 /**
-* Index
-*/
+ * Index
+ */
 $index = new MicroCollection();
 $index->setHandler('IndexController', true);
 // Gets index
@@ -31,8 +31,8 @@ $index->get('/logout', 'logout');
 $app->mount($index);
 
 /**
-* Profile
-*/
+ * Profile
+ */
 $profile = new MicroCollection();
 $profile->setHandler('ProfileController', true);
 $profile->setPrefix('/profile');
@@ -46,8 +46,8 @@ $profile->patch('/change-password', 'changePassword');
 $app->mount($profile);
 
 /**
-* Users
-*/
+ * Users
+ */
 $users = new MicroCollection();
 $users->setHandler('UsersController', true);
 $users->setPrefix('/users');
@@ -65,8 +65,8 @@ $users->patch('/change-password/{id}', 'changePassword');
 $app->mount($users);
 
 /**
-* Cities
-*/
+ * Cities
+ */
 $cities = new MicroCollection();
 $cities->setHandler('CitiesController', true);
 $cities->setPrefix('/cities');
@@ -84,8 +84,8 @@ $cities->delete('/delete/{id}', 'delete');
 $app->mount($cities);
 
 /**
-* Not found handler
-*/
+ * Not found handler
+ */
 $app->notFound(function () use ($app) {
     $app->response->setStatusCode(404, "Not Found")->sendHeaders();
     $app->response->setContentType('application/json', 'UTF-8');
@@ -98,8 +98,8 @@ $app->notFound(function () use ($app) {
 });
 
 /**
-* Error handler
-*/
+ * Error handler
+ */
 $app->error(
     function ($exception) {
         echo "An error has occurred";

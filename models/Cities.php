@@ -72,7 +72,7 @@ class Cities extends \Phalcon\Mvc\Model
         return array(
             'id' => 'id',
             'name' => 'name',
-            'country' => 'country'
+            'country' => 'country',
         );
     }
 

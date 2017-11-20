@@ -100,7 +100,7 @@ class UsersAccess extends \Phalcon\Mvc\Model
             'domain' => 'domain',
             'country' => 'country',
             'browser' => 'browser',
-            'date' => 'date'
+            'date' => 'date',
         );
     }
 

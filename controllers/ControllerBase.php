@@ -11,7 +11,8 @@ class ControllerBase extends Controller
     /**
      * Register LOG in another DB
      */
-    public function registerLog() {
+    public function registerLog()
+    {
         // gets user token
         $token_decoded = $this->decodeToken($this->getToken());
 
@@ -42,7 +43,8 @@ class ControllerBase extends Controller
     /**
      * Generated NOW datetime based on a timezone
      */
-    public function getNowDateTime() {
+    public function getNowDateTime()
+    {
         $now = new DateTime();
         $now->setTimezone(new DateTimeZone('UTC'));
         $now = $now->format('Y-m-d H:i:s');
@@ -52,7 +54,8 @@ class ControllerBase extends Controller
     /**
      * Generated NOW datetime based on a timezone and added XX minutes
      */
-    public function getNowDateTimePlusMinutes($minutes_to_add) {
+    public function getNowDateTimePlusMinutes($minutes_to_add)
+    {
         $now = new DateTime();
         $now->setTimezone(new DateTimeZone('UTC'));
         $now->add(new DateInterval('PT' . $minutes_to_add . 'M'));
@@ -63,15 +66,17 @@ class ControllerBase extends Controller
     /**
      * Converts ISO8601 date to DateTime UTC
      */
-    public function iso8601_to_utc($date) {
+    public function iso8601_to_utc($date)
+    {
         return $datetime = date('Y-m-d H:i:s', strtotime($date));
     }
 
     /**
      * Converts DateTime UTC date to ISO8601
      */
-    public function utc_to_iso8601($date) {
-        if( !empty($date) && ($date != '0000-00-00') && ($date != '0000-00-00 00:00') && ($date != '0000-00-00 00:00:00') ) {
+    public function utc_to_iso8601($date)
+    {
+        if (!empty($date) && ($date != '0000-00-00') && ($date != '0000-00-00 00:00') && ($date != '0000-00-00 00:00:00')) {
             $datetime = new DateTime($date);
             return $datetime->format('Y-m-d\TH:i:s\Z');
         } else {
@@ -82,7 +87,8 @@ class ControllerBase extends Controller
     /**
      * Array push associative.
      */
-    public function array_push_assoc($array, $key, $value){
+    public function array_push_assoc($array, $key, $value)
+    {
         $array[$key] = $value;
         return $array;
     }
@@ -90,7 +96,8 @@ class ControllerBase extends Controller
     /**
      * Generates limits for queries.
      */
-    public function getQueryLimit($limit) {
+    public function getQueryLimit($limit)
+    {
         if ($limit != '') {
             if ($limit > 150) {
                 $setLimit = 150;
@@ -98,7 +105,7 @@ class ControllerBase extends Controller
             if ($limit <= 0) {
                 $setLimit = 1;
             }
-            if ( ($limit >= 1) && ($limit <= 150)) {
+            if (($limit >= 1) && ($limit <= 150)) {
                 $setLimit = $limit;
             }
         } else {
@@ -110,7 +117,8 @@ class ControllerBase extends Controller
     /**
      * Verifies if is get request
      */
-    public function initializeGet() {
+    public function initializeGet()
+    {
         if (!$this->request->isGet()) {
             die();
         }
@@ -119,7 +127,8 @@ class ControllerBase extends Controller
     /**
      * Verifies if is post request
      */
-    public function initializePost() {
+    public function initializePost()
+    {
         if (!$this->request->isPost()) {
             die();
         }
@@ -128,7 +137,8 @@ class ControllerBase extends Controller
     /**
      * Verifies if is patch request
      */
-    public function initializePatch() {
+    public function initializePatch()
+    {
         if (!$this->request->isPatch()) {
             die();
         }
@@ -137,7 +147,8 @@ class ControllerBase extends Controller
     /**
      * Verifies if is patch request
      */
-    public function initializeDelete() {
+    public function initializeDelete()
+    {
         if (!$this->request->isDelete()) {
             die();
         }
@@ -146,7 +157,8 @@ class ControllerBase extends Controller
     /**
      * Encode token.
      */
-    public function encodeToken($data) {
+    public function encodeToken($data)
+    {
         // Encode token
         $token_encoded = $this->jwt->encode($data, $this->tokenConfig['secret']);
         $token_encoded = $this->mycrypt->encryptBase64($token_encoded);
@@ -156,7 +168,8 @@ class ControllerBase extends Controller
     /**
      * Decode token.
      */
-    public function decodeToken($token) {
+    public function decodeToken($token)
+    {
         // Decode token
         $token = $this->mycrypt->decryptBase64($token);
         $token = $this->jwt->decode($token, $this->tokenConfig['secret'], array('HS256'));
@@ -167,13 +180,15 @@ class ControllerBase extends Controller
      * Returns token from the request.
      * Uses token URL query field, or Authorization header
      */
-    public function getToken() {
+    public function getToken()
+    {
         $authHeader = $this->request->getHeader('Authorization');
         $authQuery = $this->request->getQuery('token');
         return $authQuery ? $authQuery : $this->parseBearerValue($authHeader);
     }
 
-    protected function parseBearerValue($string) {
+    protected function parseBearerValue($string)
+    {
         if (strpos(trim($string), 'Bearer') !== 0) {
             return null;
         }
@@ -183,7 +198,8 @@ class ControllerBase extends Controller
     /**
      * Builds success responses.
      */
-    public function buildSuccessResponse($code, $messages, $data = '') {
+    public function buildSuccessResponse($code, $messages, $data = '')
+    {
         switch ($code) {
             case 200:
                 $status = 'OK';
@@ -198,7 +214,7 @@ class ControllerBase extends Controller
             "status" => $status,
             "code" => $code,
             "messages" => $messages,
-            "data" => $data
+            "data" => $data,
         );
         $this->response->setStatusCode($code, $status)->sendHeaders();
         $this->response->setContentType('application/json', 'UTF-8');
@@ -209,7 +225,8 @@ class ControllerBase extends Controller
     /**
      * Builds error responses.
      */
-    public function buildErrorResponse($code, $messages, $data = '') {
+    public function buildErrorResponse($code, $messages, $data = '')
+    {
         switch ($code) {
             case 400:
                 $status = 'Bad Request';
@@ -231,7 +248,7 @@ class ControllerBase extends Controller
             "status" => $status,
             "code" => $code,
             "messages" => $messages,
-            "data" => $data
+            "data" => $data,
         );
         $this->response->setStatusCode($code, $status)->sendHeaders();
         $this->response->setContentType('application/json', 'UTF-8');

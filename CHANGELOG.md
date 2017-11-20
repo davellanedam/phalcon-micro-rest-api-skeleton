@@ -1,3 +1,7 @@
+## 0.4.1 (Nov 20, 2017)
+
+* Formatting code
+
 ## 0.4.0 (Oct 22, 2017)
 
 * Make HTTPS redirect host and port agnostic

@@ -15,7 +15,7 @@ class ProfileController extends ControllerBase
 
         $conditions = "username = :username:";
         $parameters = array(
-            "username" => $token->username_username
+            "username" => $token->username_username,
         );
         $user = Users::findFirst(
             array(
@@ -44,7 +44,7 @@ class ProfileController extends ControllerBase
         // Start a transaction
         $this->db->begin();
 
-        if ( empty($this->request->getPut("firstname")) || empty($this->request->getPut("lastname")) ) {
+        if (empty($this->request->getPut("firstname")) || empty($this->request->getPut("lastname"))) {
             $this->buildErrorResponse(400, "common.INCOMPLETE_DATA_RECEIVED");
         } else {
             // gets token
@@ -52,12 +52,12 @@ class ProfileController extends ControllerBase
 
             $conditions = "username = :username:";
             $parameters = array(
-                "username" => $token->username_username
+                "username" => $token->username_username,
             );
             $user = Users::findFirst(
                 array(
                     $conditions,
-                    "bind" => $parameters
+                    "bind" => $parameters,
                 )
             );
             if (!$user) {
@@ -85,7 +85,7 @@ class ProfileController extends ControllerBase
 
                     $conditions = "username = :username:";
                     $parameters = array(
-                        "username" => $token->username_username
+                        "username" => $token->username_username,
                     );
                     $user = Users::findFirst(
                         array(
@@ -117,7 +117,7 @@ class ProfileController extends ControllerBase
         // Start a transaction
         $this->db->begin();
 
-        if ( empty($this->request->getPut("current_password")) || empty($this->request->getPut("new_password")) ) {
+        if (empty($this->request->getPut("current_password")) || empty($this->request->getPut("new_password"))) {
             $this->buildErrorResponse(400, "common.INCOMPLETE_DATA_RECEIVED");
         } else {
 
@@ -126,12 +126,12 @@ class ProfileController extends ControllerBase
 
             $conditions = "username = :username:";
             $parameters = array(
-                "username" => $token->username_username
+                "username" => $token->username_username,
             );
             $user = Users::findFirst(
                 array(
                     $conditions,
-                    "bind" => $parameters
+                    "bind" => $parameters,
                 )
             );
             if (!$user) {

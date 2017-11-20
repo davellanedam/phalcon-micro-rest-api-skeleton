@@ -17,7 +17,7 @@ $di = new FactoryDefault();
 /**
  * Models manager
  */
-$di->set('modelsManager', function() {
+$di->set('modelsManager', function () {
     $modelsManager = new ModelsManager();
     return $modelsManager;
 });
@@ -52,7 +52,7 @@ $di->set('mycrypt', function () use ($config) {
 /**
  * JWT service
  */
-$di->setShared('jwt', function() {
+$di->setShared('jwt', function () {
     return new JWT();
 });
 

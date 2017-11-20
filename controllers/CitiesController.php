@@ -17,18 +17,18 @@ class CitiesController extends ControllerBase
         $limit = $offset + $rows;
 
         // Handles Sort querystring (order_by)
-        if ( $this->request->get('sort') != null && $this->request->get('order') != null ) {
+        if ($this->request->get('sort') != null && $this->request->get('order') != null) {
             $order_by = $this->request->get('sort') . " " . $this->request->get('order');
         }
 
         // Gets rows_per_page
-        if ( $this->request->get('limit') != null ) {
+        if ($this->request->get('limit') != null) {
             $rows = $this->getQueryLimit($this->request->get('limit'));
             $limit = $rows;
         }
 
         // Calculate the offset and limit
-        if ( $this->request->get('offset') != null ) {
+        if ($this->request->get('offset') != null) {
             $offset = $this->request->get('offset');
             $limit = $rows;
         }
@@ -38,11 +38,11 @@ class CitiesController extends ControllerBase
         $parameters = [];
 
         // Filters simple (no left joins needed)
-        if ( $this->request->get('filter') != null ) {
+        if ($this->request->get('filter') != null) {
             $filter = json_decode($this->request->get('filter'), true);
-            foreach($filter as $key => $value) {
+            foreach ($filter as $key => $value) {
                 array_push($conditions, $key . " LIKE :" . $key . ":");
-                $parameters = $this->array_push_assoc($parameters, $key, "%".trim($value)."%");
+                $parameters = $this->array_push_assoc($parameters, $key, "%" . trim($value) . "%");
             }
             $conditions = implode(' AND ', $conditions);
         }
@@ -55,7 +55,7 @@ class CitiesController extends ControllerBase
                 'columns' => 'id, name, country',
                 'order' => $order_by,
                 'offset' => $offset,
-                'limit' => $limit
+                'limit' => $limit,
             )
         );
 
@@ -63,7 +63,7 @@ class CitiesController extends ControllerBase
         $total = Cities::count(
             array(
                 $conditions,
-                'bind' => $parameters
+                'bind' => $parameters,
             )
         );
 
