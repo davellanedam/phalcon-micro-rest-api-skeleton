@@ -46,7 +46,7 @@ VALUES
 	(5,'Cartagena','Colombia'),
 	(6,'Bucaramanga','Colombia');
 
-/*!40000 ALTER TABLE `city` ENABLE KEYS */;
+/*!40000 ALTER TABLE `cities` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
