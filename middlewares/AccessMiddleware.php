@@ -21,8 +21,15 @@ class AccessMiddleware extends ControllerBase implements MiddlewareInterface
         $controller = str_replace('Controller', '', $nameController);
         // get function
         $function = $arrHandler[1];
+        
         // check if controller is Index, if it´s Index, then checks if any of functions are called if so return allow
         if ($controller === 'Index') {
+            $allowed = 1;
+            return $allowed;
+        }
+
+        // check if exist a controllers and functions in ACL Guest, so return allow
+        if (array_key_exists($controller, $arrResources['Guest']) && in_array($function, $arrResources['Guest'][$controller])) {
             $allowed = 1;
             return $allowed;
         }
