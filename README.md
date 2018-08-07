@@ -136,7 +136,7 @@ Step into a terminal window and open your project folder, then type the followin
 ```bash
 phalcon controller --name=your_controller_name_without_the_controller_word
 ```
-When it´s done, it creates you new controller, but if you want to use `ControllerBase.php` functions in your newly created controller you must change the following line in the new controller:
+When it´s done, it creates your new controller, but if you want to use `ControllerBase.php` functions in your newly created controller you must change the following line in the new controller:
 ```php
 class MyNewController extends \Phalcon\Mvc\Controller
 ```
