@@ -1,3 +1,7 @@
+## 0.4.2 (Dec 12, 2018)
+
+* ACL fix
+
 ## 0.4.1 (Nov 20, 2017)
 
 * Formatting code
