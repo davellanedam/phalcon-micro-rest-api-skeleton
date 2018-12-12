@@ -28,7 +28,7 @@ $acl->addInherit('Superuser', 'User');
  * */
 $arrResources = [
     'Guest' => [
-        'Users' => ['login'],
+        'Index' => ['login'],
     ],
     'User' => [
         'Profile' => ['index', 'update', 'changePassword'],
