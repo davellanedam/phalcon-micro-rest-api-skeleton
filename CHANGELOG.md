@@ -1,3 +1,7 @@
+## 1.0.1 (Feb 2, 2019)
+
+* Postman collection updated
+
 ## 1.0.0 (Feb 2, 2019)
 
 * Big refactor

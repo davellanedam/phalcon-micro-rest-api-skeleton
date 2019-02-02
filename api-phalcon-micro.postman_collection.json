@@ -1,593 +1,695 @@
 {
-	"variables": [],
-	"info": {
-		"name": "api phalcon micro",
-		"_postman_id": "bd456712-1cdc-b9c5-4961-deef858101dc",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Cities",
-			"description": "",
-			"item": [
-				{
-					"name": "/cities",
-					"request": {
-						"url": {
-							"raw": "http://api.myproject.local/cities?limit=5&offset=0&sort=name&order=asc",
-							"protocol": "http",
-							"host": [
-								"api",
-								"myproject",
-								"local"
-							],
-							"path": [
-								"cities"
-							],
-							"query": [
-								{
-									"key": "limit",
-									"value": "5",
-									"equals": true,
-									"description": ""
-								},
-								{
-									"key": "offset",
-									"value": "0",
-									"equals": true,
-									"description": ""
-								},
-								{
-									"key": "sort",
-									"value": "name",
-									"equals": true,
-									"description": ""
-								},
-								{
-									"key": "order",
-									"value": "asc",
-									"equals": true,
-									"description": ""
-								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": "Cities list"
-					},
-					"response": []
-				},
-				{
-					"name": "/cities/create",
-					"request": {
-						"url": "http://api.myproject.local/cities/create",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "Floridablanca",
-									"type": "text"
-								},
-								{
-									"key": "country",
-									"value": "Colombia",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"description": "Create city"
-					},
-					"response": []
-				},
-				{
-					"name": "/cities/get/{id}",
-					"request": {
-						"url": "http://api.myproject.local/cities/get/8",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": "Get city info"
-					},
-					"response": []
-				},
-				{
-					"name": "/cities/update/{id}",
-					"request": {
-						"url": "http://api.myproject.local/cities/update/7",
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "Floridablanca",
-									"type": "text"
-								},
-								{
-									"key": "country",
-									"value": "Colombia",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"description": "Update city info"
-					},
-					"response": []
-				},
-				{
-					"name": "/cities/delete/{id}",
-					"request": {
-						"url": "http://api.myproject.local/cities/delete/7",
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": "Delete city"
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Index",
-			"description": "",
-			"item": [
-				{
-					"name": "/authenticate/",
-					"request": {
-						"url": "http://api.myproject.local/authenticate",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Basic YWRtaW46YWRtaW4xMjM0",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": "User authentication"
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Profile",
-			"description": "",
-			"item": [
-				{
-					"name": "/profile",
-					"request": {
-						"url": "http://api.myproject.local/profile",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": "User profile"
-					},
-					"response": []
-				},
-				{
-					"name": "/profile/update",
-					"request": {
-						"url": "http://api.myproject.local/profile/update",
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "document",
-									"value": "123123",
-									"type": "text"
-								},
-								{
-									"key": "firstname",
-									"value": "Other name",
-									"type": "text"
-								},
-								{
-									"key": "lastname",
-									"value": "Lastname",
-									"type": "text"
-								},
-								{
-									"key": "birthday",
-									"value": "1979-12-11",
-									"type": "text"
-								},
-								{
-									"key": "phone",
-									"value": "5345345",
-									"type": "text"
-								},
-								{
-									"key": "mobile",
-									"value": "34534534",
-									"type": "text"
-								},
-								{
-									"key": "address",
-									"value": "Calle15",
-									"type": "text"
-								},
-								{
-									"key": "city",
-									"value": "Bogotá",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "asd@asd.com",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"description": "Updates profile"
-					},
-					"response": []
-				},
-				{
-					"name": "/profile/change-password",
-					"request": {
-						"url": "http://api.myproject.local/profile/change-password",
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "current_password",
-									"value": "admin1234",
-									"type": "text"
-								},
-								{
-									"key": "new_password",
-									"value": "admin1234",
-									"type": "text"
-								}
-							]
-						},
-						"description": "Updates password"
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Users",
-			"description": "",
-			"item": [
-				{
-					"name": "/users",
-					"request": {
-						"url": {
-							"raw": "http://api.myproject.local/users?limit=5&offset=0&sort=firstname, lastname&order=asc",
-							"protocol": "http",
-							"host": [
-								"api",
-								"myproject",
-								"local"
-							],
-							"path": [
-								"users"
-							],
-							"query": [
-								{
-									"key": "limit",
-									"value": "5",
-									"equals": true,
-									"description": ""
-								},
-								{
-									"key": "offset",
-									"value": "0",
-									"equals": true,
-									"description": ""
-								},
-								{
-									"key": "sort",
-									"value": "firstname, lastname",
-									"equals": true,
-									"description": ""
-								},
-								{
-									"key": "order",
-									"value": "asc",
-									"equals": true,
-									"description": ""
-								},
-								{
-									"key": "filter",
-									"value": "{\"user_phone\":60}",
-									"type": "text",
-									"description": "",
-									"disabled": true
-								}
-							],
-							"variable": []
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": "Users list"
-					},
-					"response": []
-				},
-				{
-					"name": "/users/create",
-					"request": {
-						"url": "http://api.myproject.local/users/create",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "email",
-									"value": "another@email.com",
-									"type": "text"
-								},
-								{
-									"key": "newPassword",
-									"value": "test123",
-									"type": "text"
-								},
-								{
-									"key": "username",
-									"value": "my_username",
-									"type": "text"
-								},
-								{
-									"key": "firstname",
-									"value": "My name",
-									"type": "text"
-								},
-								{
-									"key": "lastname",
-									"value": "My last name",
-									"type": "text"
-								},
-								{
-									"key": "level",
-									"value": "Superuser",
-									"type": "text"
-								},
-								{
-									"key": "phone",
-									"value": "12312312",
-									"type": "text"
-								},
-								{
-									"key": "mobile",
-									"value": "31312312",
-									"type": "text"
-								},
-								{
-									"key": "address",
-									"value": "Calle 10",
-									"type": "text"
-								},
-								{
-									"key": "city",
-									"value": "Bogota",
-									"type": "text"
-								},
-								{
-									"key": "country",
-									"value": "Colombia",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "birthday",
-									"value": "1979-01-01",
-									"type": "text"
-								},
-								{
-									"key": "authorised",
-									"value": "1",
-									"type": "text"
-								}
-							]
-						},
-						"description": "Create user"
-					},
-					"response": []
-				},
-				{
-					"name": "/users/get/{id}",
-					"request": {
-						"url": "http://api.myproject.local/users/get/4",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": "Get user info"
-					},
-					"response": []
-				},
-				{
-					"name": "/users/update/{id}",
-					"request": {
-						"url": "http://api.myproject.local/users/update/2",
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "email",
-									"value": "onemore@email.com",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "firstname",
-									"value": "Other name",
-									"type": "text"
-								},
-								{
-									"key": "lastname",
-									"value": "Other lastname",
-									"type": "text"
-								},
-								{
-									"key": "birthday",
-									"value": "1979-01-01",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "level",
-									"value": "Superuser",
-									"type": "text"
-								},
-								{
-									"key": "phone",
-									"value": "4534534",
-									"type": "text"
-								},
-								{
-									"key": "mobile",
-									"value": "2425235",
-									"type": "text"
-								},
-								{
-									"key": "address",
-									"value": "Calle 12",
-									"type": "text"
-								},
-								{
-									"key": "city",
-									"value": "Bogotá",
-									"type": "text"
-								},
-								{
-									"key": "country",
-									"value": "Colombia",
-									"type": "text"
-								},
-								{
-									"key": "authorised",
-									"value": "1",
-									"type": "text"
-								}
-							]
-						},
-						"description": "Update user info"
-					},
-					"response": []
-				},
-				{
-					"name": "/users/change-password/{id}",
-					"request": {
-						"url": "http://api.myproject.local/users/change-password/2",
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "newPassword",
-									"value": "admin1234",
-									"type": "text"
-								}
-							]
-						},
-						"description": "Update user password"
-					},
-					"response": []
-				}
-			]
-		}
-	]
+  "id": "bd456712-1cdc-b9c5-4961-deef858101dc",
+  "name": "api phalcon micro",
+  "description": "",
+  "auth": null,
+  "events": null,
+  "variables": [],
+  "order": [],
+  "folders_order": ["63ff5769-c1f5-dde5-89de-0913c849d29f", "b7a3d897-49ac-abd0-c890-9fdf0097b542", "d18dfd48-d3ae-0c30-29c5-ffa0e8e6c98f", "0468a31b-14b4-a0cd-f956-5b77bd88737b"],
+  "folders": [{
+    "id": "63ff5769-c1f5-dde5-89de-0913c849d29f",
+    "name": "Cities",
+    "description": "",
+    "auth": null,
+    "events": null,
+    "collection": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "folder": null,
+    "order": ["732b4a4c-62ed-d256-0a2c-9484ac355d9a", "2d2dc26e-eff1-770a-647c-261a896ad4b5", "d74ea29e-dc42-39d8-4b0c-13cc3af6d97d", "1c5737da-a0e5-e6ad-a8c7-fb413f6e40a8", "045aa7d8-7521-f81e-f3fc-1a2765f47d7b"],
+    "folders_order": [],
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "folderId": "63ff5769-c1f5-dde5-89de-0913c849d29f"
+  }, {
+    "id": "b7a3d897-49ac-abd0-c890-9fdf0097b542",
+    "name": "Index",
+    "description": "",
+    "auth": null,
+    "events": null,
+    "collection": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "folder": null,
+    "order": ["6ba0116e-3c18-cbe8-8449-cf548b950bfc"],
+    "folders_order": [],
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "folderId": "b7a3d897-49ac-abd0-c890-9fdf0097b542"
+  }, {
+    "id": "d18dfd48-d3ae-0c30-29c5-ffa0e8e6c98f",
+    "name": "Profile",
+    "description": "",
+    "auth": null,
+    "events": null,
+    "collection": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "folder": null,
+    "order": ["634b17b9-3c8f-ff74-1263-eb01f1a36960", "38b8d9dd-5b98-89e7-e99b-650ba637b54c", "65068fc0-8fd7-7824-99cb-059a147c6a9c"],
+    "folders_order": [],
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "folderId": "d18dfd48-d3ae-0c30-29c5-ffa0e8e6c98f"
+  }, {
+    "id": "0468a31b-14b4-a0cd-f956-5b77bd88737b",
+    "name": "Users",
+    "description": "",
+    "auth": null,
+    "events": null,
+    "collection": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "folder": null,
+    "order": ["eb82e60a-952b-c51f-5954-d16db6fb5ca9", "b4ec44f8-a16f-9036-21e5-dadcfda27cd0", "bd55552c-2081-ffee-10a5-9b407b85ea20", "2923ffa1-ff09-5938-4c05-9efb56cb7f16", "666acbf2-52e2-2da0-10ff-204e2346fa10", "f3b827e3-ff06-4c39-afa1-025026eb7b4e"],
+    "folders_order": [],
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "folderId": "0468a31b-14b4-a0cd-f956-5b77bd88737b"
+  }],
+  "requests": [{
+    "id": "045aa7d8-7521-f81e-f3fc-1a2765f47d7b",
+    "name": "\/cities\/delete\/{id}",
+    "url": "http:\/\/api.myproject.local\/cities\/delete\/8",
+    "description": "Delete city",
+    "data": [],
+    "dataMode": "params",
+    "headerData": [{
+      "key": "Authorization",
+      "value": "Bearer {{authToken}}",
+      "description": "",
+      "enabled": true
+    }],
+    "method": "DELETE",
+    "pathVariableData": [],
+    "queryParams": [],
+    "auth": null,
+    "events": null,
+    "folder": "63ff5769-c1f5-dde5-89de-0913c849d29f",
+    "currentHelper": null,
+    "helperAttributes": null,
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "headers": "Authorization: Bearer {{authToken}}\n",
+    "pathVariables": []
+  }, {
+    "id": "1c5737da-a0e5-e6ad-a8c7-fb413f6e40a8",
+    "name": "\/cities\/update\/{id}",
+    "url": "http:\/\/api.myproject.local\/cities\/update\/7",
+    "description": "Update city info",
+    "data": [{
+      "key": "name",
+      "value": "Floridablanca",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "country",
+      "value": "Colombia",
+      "description": "",
+      "type": "text",
+      "enabled": true
+    }],
+    "dataMode": "urlencoded",
+    "headerData": [{
+      "key": "Authorization",
+      "value": "Bearer {{authToken}}",
+      "description": "",
+      "enabled": true
+    }],
+    "method": "PATCH",
+    "pathVariableData": [],
+    "queryParams": [],
+    "auth": null,
+    "events": null,
+    "folder": "63ff5769-c1f5-dde5-89de-0913c849d29f",
+    "currentHelper": null,
+    "helperAttributes": null,
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "headers": "Authorization: Bearer {{authToken}}\n",
+    "pathVariables": []
+  }, {
+    "id": "2923ffa1-ff09-5938-4c05-9efb56cb7f16",
+    "name": "\/users\/update\/{id}",
+    "url": "http:\/\/api.myproject.local\/users\/update\/1",
+    "description": "Update user info",
+    "data": [{
+      "key": "email",
+      "value": "onemore@email.com",
+      "description": "",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "firstname",
+      "value": "Other name",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "lastname",
+      "value": "Other lastname",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "birthday",
+      "value": "1979-01-01",
+      "description": "",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "level",
+      "value": "Superuser",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "phone",
+      "value": "4534534",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "mobile",
+      "value": "2425235",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "address",
+      "value": "Calle 12",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "city",
+      "value": "Bogot\u00e1",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "country",
+      "value": "Colombia",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "authorised",
+      "value": "1",
+      "type": "text",
+      "enabled": true
+    }],
+    "dataMode": "urlencoded",
+    "headerData": [{
+      "key": "Authorization",
+      "value": "Bearer {{authToken}}",
+      "description": "",
+      "enabled": true
+    }],
+    "method": "PATCH",
+    "pathVariableData": [],
+    "queryParams": [],
+    "auth": null,
+    "events": null,
+    "folder": "0468a31b-14b4-a0cd-f956-5b77bd88737b",
+    "currentHelper": null,
+    "helperAttributes": null,
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "headers": "Authorization: Bearer {{authToken}}\n",
+    "pathVariables": []
+  }, {
+    "id": "2d2dc26e-eff1-770a-647c-261a896ad4b5",
+    "name": "\/cities\/create",
+    "url": "http:\/\/api.myproject.local\/cities\/create",
+    "description": "Create city",
+    "data": [{
+      "key": "name",
+      "value": "Floridablanca35",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "country",
+      "value": "Colombia",
+      "description": "",
+      "type": "text",
+      "enabled": true
+    }],
+    "dataMode": "urlencoded",
+    "headerData": [{
+      "key": "Authorization",
+      "value": "Bearer {{authToken}}",
+      "description": "",
+      "enabled": true
+    }],
+    "method": "POST",
+    "pathVariableData": [],
+    "queryParams": [],
+    "auth": null,
+    "events": null,
+    "folder": "63ff5769-c1f5-dde5-89de-0913c849d29f",
+    "currentHelper": null,
+    "helperAttributes": null,
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "headers": "Authorization: Bearer {{authToken}}\n",
+    "pathVariables": []
+  }, {
+    "id": "38b8d9dd-5b98-89e7-e99b-650ba637b54c",
+    "name": "\/profile\/update",
+    "url": "http:\/\/api.myproject.local\/profile\/update",
+    "description": "Updates profile",
+    "data": [{
+      "key": "firstname",
+      "value": "Other name",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "lastname",
+      "value": "Lastname",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "birthday",
+      "value": "1979-12-11",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "phone",
+      "value": "5345345",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "mobile",
+      "value": "34534534",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "address",
+      "value": "Calle15",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "city",
+      "value": "Bogot\u00e1",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "email",
+      "value": "asd@asd.com",
+      "description": "",
+      "type": "text",
+      "enabled": true
+    }],
+    "dataMode": "urlencoded",
+    "headerData": [{
+      "key": "Authorization",
+      "value": "Bearer {{authToken}}",
+      "description": "",
+      "enabled": true
+    }],
+    "method": "PATCH",
+    "pathVariableData": [],
+    "queryParams": [],
+    "auth": null,
+    "events": null,
+    "folder": "d18dfd48-d3ae-0c30-29c5-ffa0e8e6c98f",
+    "currentHelper": null,
+    "helperAttributes": null,
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "headers": "Authorization: Bearer {{authToken}}\n",
+    "pathVariables": []
+  }, {
+    "id": "634b17b9-3c8f-ff74-1263-eb01f1a36960",
+    "name": "\/profile",
+    "url": "http:\/\/api.myproject.local\/profile",
+    "description": "User profile",
+    "data": null,
+    "dataMode": null,
+    "headerData": [{
+      "key": "Authorization",
+      "value": "Bearer {{authToken}}",
+      "description": "",
+      "enabled": true
+    }],
+    "method": "GET",
+    "pathVariableData": [],
+    "queryParams": [],
+    "auth": null,
+    "events": null,
+    "folder": "d18dfd48-d3ae-0c30-29c5-ffa0e8e6c98f",
+    "currentHelper": null,
+    "helperAttributes": null,
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "headers": "Authorization: Bearer {{authToken}}\n",
+    "pathVariables": []
+  }, {
+    "id": "65068fc0-8fd7-7824-99cb-059a147c6a9c",
+    "name": "\/profile\/change-password",
+    "url": "http:\/\/api.myproject.local\/profile\/change-password",
+    "description": "Updates password",
+    "data": [{
+      "key": "current_password",
+      "value": "admin1234",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "new_password",
+      "value": "admin1234",
+      "type": "text",
+      "enabled": true
+    }],
+    "dataMode": "urlencoded",
+    "headerData": [{
+      "key": "Authorization",
+      "value": "Bearer {{authToken}}",
+      "description": "",
+      "enabled": true
+    }],
+    "method": "PATCH",
+    "pathVariableData": [],
+    "queryParams": [],
+    "auth": null,
+    "events": null,
+    "folder": "d18dfd48-d3ae-0c30-29c5-ffa0e8e6c98f",
+    "currentHelper": null,
+    "helperAttributes": null,
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "headers": "Authorization: Bearer {{authToken}}\n",
+    "pathVariables": []
+  }, {
+    "id": "666acbf2-52e2-2da0-10ff-204e2346fa10",
+    "name": "\/users\/change-password\/{id}",
+    "url": "http:\/\/api.myproject.local\/users\/change-password\/2",
+    "description": "Update user password",
+    "data": [{
+      "key": "new_password",
+      "value": "admin1234",
+      "type": "text",
+      "enabled": true
+    }],
+    "dataMode": "urlencoded",
+    "headerData": [{
+      "key": "Authorization",
+      "value": "Bearer {{authToken}}",
+      "description": "",
+      "enabled": true
+    }],
+    "method": "PATCH",
+    "pathVariableData": [],
+    "queryParams": [],
+    "auth": null,
+    "events": null,
+    "folder": "0468a31b-14b4-a0cd-f956-5b77bd88737b",
+    "currentHelper": null,
+    "helperAttributes": null,
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "headers": "Authorization: Bearer {{authToken}}\n",
+    "pathVariables": []
+  }, {
+    "id": "6ba0116e-3c18-cbe8-8449-cf548b950bfc",
+    "name": "\/authenticate\/",
+    "url": "http:\/\/api.myproject.local\/authenticate",
+    "description": "User authentication",
+    "data": [],
+    "dataMode": "raw",
+    "headerData": [{
+      "key": "Authorization",
+      "value": "Basic YWRtaW46YWRtaW4xMjM0",
+      "description": "",
+      "enabled": true
+    }],
+    "method": "POST",
+    "pathVariableData": [],
+    "queryParams": [],
+    "auth": {
+      "type": "basic",
+      "basic": [{
+        "key": "password",
+        "value": "admin1234"
+      }, {
+        "key": "username",
+        "value": "admin"
+      }, {
+        "key": "saveHelperData",
+        "type": "any"
+      }, {
+        "key": "showPassword",
+        "value": false,
+        "type": "boolean"
+      }]
+    },
+    "events": null,
+    "folder": "b7a3d897-49ac-abd0-c890-9fdf0097b542",
+    "currentHelper": "basicAuth",
+    "helperAttributes": {
+      "id": "basic",
+      "username": "admin",
+      "password": "admin1234"
+    },
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "rawModeData": "",
+    "headers": "Authorization: Basic YWRtaW46YWRtaW4xMjM0\n",
+    "pathVariables": []
+  }, {
+    "id": "732b4a4c-62ed-d256-0a2c-9484ac355d9a",
+    "name": "\/cities",
+    "url": "http:\/\/api.myproject.local\/cities?limit=5&offset=0&sort=name&order=asc",
+    "description": "Cities list",
+    "data": null,
+    "dataMode": null,
+    "headerData": [{
+      "key": "Authorization",
+      "value": "Bearer {{authToken}}",
+      "description": "",
+      "enabled": true
+    }],
+    "method": "GET",
+    "pathVariableData": [],
+    "queryParams": [{
+      "key": "limit",
+      "value": "5",
+      "equals": true,
+      "description": "",
+      "enabled": true
+    }, {
+      "key": "offset",
+      "value": "0",
+      "equals": true,
+      "description": "",
+      "enabled": true
+    }, {
+      "key": "sort",
+      "value": "name",
+      "equals": true,
+      "description": "",
+      "enabled": true
+    }, {
+      "key": "order",
+      "value": "asc",
+      "equals": true,
+      "description": "",
+      "enabled": true
+    }],
+    "auth": null,
+    "events": null,
+    "folder": "63ff5769-c1f5-dde5-89de-0913c849d29f",
+    "currentHelper": null,
+    "helperAttributes": null,
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "headers": "Authorization: Bearer {{authToken}}\n",
+    "pathVariables": []
+  }, {
+    "id": "b4ec44f8-a16f-9036-21e5-dadcfda27cd0",
+    "name": "\/users\/create",
+    "url": "http:\/\/api.myproject.local\/users\/create",
+    "description": "Create user",
+    "data": [{
+      "key": "email",
+      "value": "another@email.com",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "new_password",
+      "value": "test123",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "username",
+      "value": "admintest",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "firstname",
+      "value": "My name",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "lastname",
+      "value": "My last name",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "level",
+      "value": "Superuser",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "phone",
+      "value": "12312312",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "mobile",
+      "value": "31312312",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "address",
+      "value": "Calle 10",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "city",
+      "value": "Bogot\u00e1",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "country",
+      "value": "Colombia",
+      "description": "",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "birthday",
+      "value": "1979-01-01",
+      "type": "text",
+      "enabled": true
+    }, {
+      "key": "authorised",
+      "value": "1",
+      "type": "text",
+      "enabled": true
+    }],
+    "dataMode": "urlencoded",
+    "headerData": [{
+      "key": "Authorization",
+      "value": "Bearer {{authToken}}",
+      "description": "",
+      "enabled": true
+    }],
+    "method": "POST",
+    "pathVariableData": [],
+    "queryParams": [],
+    "auth": null,
+    "events": null,
+    "folder": "0468a31b-14b4-a0cd-f956-5b77bd88737b",
+    "currentHelper": null,
+    "helperAttributes": null,
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "headers": "Authorization: Bearer {{authToken}}\n",
+    "pathVariables": []
+  }, {
+    "id": "bd55552c-2081-ffee-10a5-9b407b85ea20",
+    "name": "\/users\/get\/{id}",
+    "url": "http:\/\/api.myproject.local\/users\/get\/1",
+    "description": "Get user info",
+    "data": null,
+    "dataMode": null,
+    "headerData": [{
+      "key": "Authorization",
+      "value": "Bearer {{authToken}}",
+      "description": "",
+      "enabled": true
+    }],
+    "method": "GET",
+    "pathVariableData": [],
+    "queryParams": [],
+    "auth": null,
+    "events": null,
+    "folder": "0468a31b-14b4-a0cd-f956-5b77bd88737b",
+    "currentHelper": null,
+    "helperAttributes": null,
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "headers": "Authorization: Bearer {{authToken}}\n",
+    "pathVariables": []
+  }, {
+    "id": "d74ea29e-dc42-39d8-4b0c-13cc3af6d97d",
+    "name": "\/cities\/get\/{id}",
+    "url": "http:\/\/api.myproject.local\/cities\/get\/1",
+    "description": "Get city info",
+    "data": null,
+    "dataMode": null,
+    "headerData": [{
+      "key": "Authorization",
+      "value": "Bearer {{authToken}}",
+      "description": "",
+      "enabled": true
+    }],
+    "method": "GET",
+    "pathVariableData": [],
+    "queryParams": [],
+    "auth": null,
+    "events": null,
+    "folder": "63ff5769-c1f5-dde5-89de-0913c849d29f",
+    "currentHelper": null,
+    "helperAttributes": null,
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "headers": "Authorization: Bearer {{authToken}}\n",
+    "pathVariables": []
+  }, {
+    "id": "eb82e60a-952b-c51f-5954-d16db6fb5ca9",
+    "name": "\/users",
+    "url": "http:\/\/api.myproject.local\/users",
+    "description": "Users list",
+    "data": null,
+    "dataMode": null,
+    "headerData": [{
+      "key": "Authorization",
+      "value": "Bearer {{authToken}}",
+      "description": "",
+      "enabled": true
+    }],
+    "method": "GET",
+    "pathVariableData": [],
+    "queryParams": [{
+      "key": "limit",
+      "value": "5",
+      "equals": true,
+      "description": "",
+      "enabled": false
+    }, {
+      "key": "offset",
+      "value": "0",
+      "equals": true,
+      "description": "",
+      "enabled": false
+    }, {
+      "key": "sort",
+      "value": "firstname, lastname",
+      "equals": true,
+      "description": "",
+      "enabled": false
+    }, {
+      "key": "order",
+      "value": "asc",
+      "equals": true,
+      "description": "",
+      "enabled": false
+    }, {
+      "key": "filter",
+      "value": "{\"user_phone\":60}",
+      "description": "",
+      "enabled": false
+    }],
+    "auth": null,
+    "events": null,
+    "folder": "0468a31b-14b4-a0cd-f956-5b77bd88737b",
+    "currentHelper": null,
+    "helperAttributes": null,
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "headers": "Authorization: Bearer {{authToken}}\n",
+    "pathVariables": []
+  }, {
+    "id": "f3b827e3-ff06-4c39-afa1-025026eb7b4e",
+    "name": "\/users\/delete\/{id}",
+    "url": "http:\/\/api.myproject.local\/users\/delete\/2",
+    "description": "Delete user",
+    "data": [],
+    "dataMode": "params",
+    "headerData": [{
+      "description": "",
+      "enabled": true,
+      "key": "Authorization",
+      "value": "Bearer {{authToken}}"
+    }],
+    "method": "DELETE",
+    "pathVariableData": [],
+    "queryParams": [],
+    "auth": null,
+    "events": null,
+    "folder": "0468a31b-14b4-a0cd-f956-5b77bd88737b",
+    "currentHelper": null,
+    "helperAttributes": null,
+    "collectionId": "bd456712-1cdc-b9c5-4961-deef858101dc",
+    "headers": "Authorization: Bearer {{authToken}}\n",
+    "pathVariables": []
+  }]
 }
