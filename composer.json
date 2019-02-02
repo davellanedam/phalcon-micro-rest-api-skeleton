@@ -1,6 +1,11 @@
 {
-    "require": {
-        "phalcon/devtools": "^3.2",
-        "firebase/php-jwt": "^5.0"
-    }
+  "scripts": {
+    "test": "./vendor/bin/phpunit --testdox tests"
+  },
+  "require": {
+    "phalcon/devtools": "^3.2",
+    "firebase/php-jwt": "^5.0",
+    "phpunit/phpunit": "^7.5",
+    "guzzlehttp/guzzle": "^6.3"
+  }
 }

@@ -21,7 +21,7 @@ return [
         'secret' => 'your secret key to SIGN token', // This will sign the token. (still insecure)
         'encryption_key' => 'Your ultra secret key to ENCRYPT the token', // Secure token with an ultra password
         'expiration_time' => 86400 * 7, // One week till token expires
-        'iss' => "myproject", // Token issuer eg. www.myproject.com
-        'aud' => "myproject", // Token audience eg. www.myproject.com
+        'iss' => 'myproject', // Token issuer eg. www.myproject.com
+        'aud' => 'myproject', // Token audience eg. www.myproject.com
     ],
 ];

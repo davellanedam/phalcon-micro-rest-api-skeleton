@@ -1,3 +1,8 @@
+## 1.0.0 (Feb 2, 2019)
+
+* Big refactor
+* PHPUnit testing added
+
 ## 0.4.2 (Dec 12, 2018)
 
 * ACL fix

@@ -8,7 +8,7 @@ use Phalcon\Events\Manager as EventsManager;
 define('APPLICATION_ENV', getenv('APPLICATION_ENV') ?: 'development');
 
 if (APPLICATION_ENV === 'development') {
-    ini_set('display_errors', "On");
+    ini_set('display_errors', 'On');
     error_reporting(E_ALL);
     $debug = new Phalcon\Debug();
     $debug->listen();

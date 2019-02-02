@@ -41,6 +41,188 @@ class ControllerBase extends Controller
     }
 
     /**
+     * Try to save data in DB
+     */
+    public function tryToSaveData($element, $customMessage = 'common.THERE_HAS_BEEN_AN_ERROR')
+    {
+        if (!$element->save()) {
+            // Send errors
+            $errors = array();
+            foreach ($element->getMessages() as $message) {
+                $errors[] = $message->getMessage();
+            }
+            $this->buildErrorResponse(400, $customMessage, $errors);
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Try to delete data in DB
+     */
+    public function tryToDeleteData($element)
+    {
+        if (!$element->delete()) {
+            // Send errors
+            $errors = array();
+            foreach ($element->getMessages() as $message) {
+                $errors[] = $message->getMessage();
+            }
+            $this->buildErrorResponse(400, 'common.COULD_NOT_BE_DELETED', $errors);
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Build options for listings
+     */
+    public function buildOptions($defaultSort, $sort, $order, $limit, $offset)
+    {
+        $options = [];
+        $rows = 5;
+        $order_by = $defaultSort;
+        $offset = 0;
+        $limit = $offset + $rows;
+
+        // Handles Sort querystring (order_by)
+        if ($this->request->get('sort') != null && $this->request->get('order') != null) {
+            $order_by = $this->request->get('sort') . ' ' . $this->request->get('order');
+        }
+
+        // Gets rows_per_page
+        if ($this->request->get('limit') != null) {
+            $rows = $this->getQueryLimit($this->request->get('limit'));
+            $limit = $rows;
+        }
+
+        // Calculate the offset and limit
+        if ($this->request->get('offset') != null) {
+            $offset = $this->request->get('offset');
+            $limit = $rows;
+        }
+        $options = $this->array_push_assoc($options, 'rows', $rows);
+        $options = $this->array_push_assoc($options, 'order_by', $order_by);
+        $options = $this->array_push_assoc($options, 'offset', $offset);
+        $options = $this->array_push_assoc($options, 'limit', $limit);
+        return $options;
+    }
+
+    /**
+     * Build filters for listings
+     */
+    public function buildFilters($filter)
+    {
+        $filters = [];
+        $conditions = [];
+        $parameters = [];
+
+        // Filters simple (no left joins needed)
+        if ($filter != null) {
+            $filter = json_decode($filter, true);
+            foreach ($filter as $key => $value) {
+                array_push($conditions, $key . ' LIKE :' . $key . ':');
+                $parameters = $this->array_push_assoc($parameters, $key, '%' . trim($value) . '%');
+            }
+            $conditions = implode(' AND ', $conditions);
+        }
+        $filters = $this->array_push_assoc($filters, 'conditions', $conditions);
+        $filters = $this->array_push_assoc($filters, 'parameters', $parameters);
+        return $filters;
+    }
+
+    /**
+     * Build listing object
+     */
+    public function buildListingObject($elements, $rows, $total)
+    {
+        $data = [];
+        $data = $this->array_push_assoc($data, 'rows_per_page', $rows);
+        $data = $this->array_push_assoc($data, 'total_rows', $total);
+        $data = $this->array_push_assoc($data, 'rows', $elements->toArray());
+        return $data;
+    }
+
+    /**
+     * Calculates total rows for an specified model
+     */
+    public function calculateTotalElements($model, $conditions, $parameters)
+    {
+        $total = $model::count(
+            array(
+                $conditions,
+                'bind' => $parameters,
+            )
+        );
+        return $total;
+    }
+
+    /**
+     * Find element by ID from an specified model
+     */
+    public function findElementById($model, $id)
+    {
+        $conditions = 'id = :id:';
+        $parameters = array(
+            'id' => $id,
+        );
+        $element = $model::findFirst(
+            array(
+                $conditions,
+                'bind' => $parameters,
+            )
+        );
+        if (!$element) {
+            $this->buildErrorResponse(404, 'common.NOT_FOUND');
+        }
+        return $element;
+    }
+
+    /**
+     * Find elements from an specified model
+     */
+    public function findElements($model, $conditions, $parameters, $columns, $order_by, $offset, $limit)
+    {
+        $elements = $model::find(
+            array(
+                $conditions,
+                'bind' => $parameters,
+                'columns' => $columns,
+                'order' => $order_by,
+                'offset' => $offset,
+                'limit' => $limit,
+            )
+        );
+        if (!$elements) {
+            $this->buildErrorResponse(404, 'common.NO_RECORDS');
+        }
+        return $elements;
+    }
+
+    /**
+     * Check if there is missing data from the request
+     */
+    public function checkForEmptyData($array)
+    {
+        foreach ($array as $value) {
+            if (empty($value)) {
+                $this->buildErrorResponse(400, 'common.INCOMPLETE_DATA_RECEIVED');
+            }
+        }
+    }
+
+    /**
+     * uset a properties from an array
+     */
+    public function unsetPropertyFromArray($array, $remove)
+    {
+        foreach ($remove as $value) {
+            unset($array[$value]);
+        }
+        return $array;
+    }
+
+    /**
      * Generated NOW datetime based on a timezone
      */
     public function getNowDateTime()
@@ -211,10 +393,10 @@ class ControllerBase extends Controller
                 break;
         }
         $generated = array(
-            "status" => $status,
-            "code" => $code,
-            "messages" => $messages,
-            "data" => $data,
+            'status' => $status,
+            'code' => $code,
+            'messages' => $messages,
+            'data' => $data,
         );
         $this->response->setStatusCode($code, $status)->sendHeaders();
         $this->response->setContentType('application/json', 'UTF-8');
@@ -245,10 +427,10 @@ class ControllerBase extends Controller
                 break;
         }
         $generated = array(
-            "status" => $status,
-            "code" => $code,
-            "messages" => $messages,
-            "data" => $data,
+            'status' => $status,
+            'code' => $code,
+            'messages' => $messages,
+            'data' => $data,
         );
         $this->response->setStatusCode($code, $status)->sendHeaders();
         $this->response->setContentType('application/json', 'UTF-8');

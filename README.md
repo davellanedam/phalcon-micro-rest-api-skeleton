@@ -27,6 +27,7 @@ Features
 * User profile.
 * Users list.
 * Cities. (Example of use: call cities API, then send name of the city when creating or updating a user.
+* Integrated tests
 
 Requirements
 ------------
@@ -42,7 +43,7 @@ How to install
 ### Using Git (recommended)
 
 1. First you need to [install composer](https://getcomposer.org/download/) if you haven´t already.
-2. Clone the project from github. Change "myproject" to you project name.
+2. Clone the project from github. Change 'myproject' to you project name.
 ```bash
 git clone https://github.com/davellanedam/phalcon-micro-api.git ./myproject
 ```
@@ -92,8 +93,8 @@ return [
         'secret' => 'your secret key to SIGN token', // This will sign the token. (still insecure)
         'encryption_key' => 'Your ultra secret key to ENCRYPT the token', // Secure token with an ultra password
         'expiration_time' => 86400 * 7, // One week till token expires
-        'iss' => "myproject", // Token issuer eg. www.myproject.com
-        'aud' => "myproject", // Token audience eg. www.myproject.com
+        'iss' => 'myproject', // Token issuer eg. www.myproject.com
+        'aud' => 'myproject', // Token audience eg. www.myproject.com
     ]
 ];
 ```
@@ -122,6 +123,12 @@ This is a REST API, so it works using the following HTTP methods:
 * POST (Create): Creates an item
 * PATCH (Update): Updates an item
 * DELETE: Deletes an item
+
+### Testing
+There are some tests included, to run tests you need to go to the command line and type:
+```bash
+composer test
+```
 
 ### Creating new models
 If you need to add more models to the project there´s an easy way to do it with `phalcondevtools` (If you did `composer install`, you already have this).
@@ -168,7 +175,7 @@ $users->patch('/change-password/{id}', 'changePassword');
 $app->mount($users);
 ```
 
-Remember to add the controller (without the controller word) and methods of endpoints to the `/config/acl.php`file. Otherwise you will get this response from the API: `"common.YOUR_USER_ROLE_DOES_NOT_HAVE_THIS_FEATURE",`
+Remember to add the controller (without the controller word) and methods of endpoints to the `/config/acl.php`file. Otherwise you will get this response from the API: `'common.YOUR_USER_ROLE_DOES_NOT_HAVE_THIS_FEATURE',`
 ```php
 /*
  * RESOURCES

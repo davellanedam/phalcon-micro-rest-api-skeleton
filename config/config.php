@@ -17,7 +17,7 @@ $config = new \Phalcon\Config([
     ],
 ]);
 
-$configOverride = new \Phalcon\Config(include_once __DIR__ . "/../config/server." . APPLICATION_ENV . ".php");
+$configOverride = new \Phalcon\Config(include_once __DIR__ . '/../config/server.' . APPLICATION_ENV . '.php');
 
 $config = $config->merge($configOverride);
 

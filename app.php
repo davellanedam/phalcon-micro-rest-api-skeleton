@@ -61,6 +61,8 @@ $users->get('/get/{id}', 'get');
 $users->patch('/update/{id}', 'update');
 // Changes user password
 $users->patch('/change-password/{id}', 'changePassword');
+// Deletes user based on unique key
+$users->delete('/delete/{id}', 'delete');
 // Adds users routes to $app
 $app->mount($users);
 
@@ -87,12 +89,12 @@ $app->mount($cities);
  * Not found handler
  */
 $app->notFound(function () use ($app) {
-    $app->response->setStatusCode(404, "Not Found")->sendHeaders();
+    $app->response->setStatusCode(404, 'Not Found')->sendHeaders();
     $app->response->setContentType('application/json', 'UTF-8');
     $app->response->setJsonContent(array(
-        "status" => "error",
-        "code" => "404",
-        "messages" => "URL Not found",
+        'status' => 'error',
+        'code' => '404',
+        'messages' => 'URL Not found',
     ));
     $app->response->send();
 });
@@ -102,6 +104,6 @@ $app->notFound(function () use ($app) {
  */
 $app->error(
     function ($exception) {
-        echo "An error has occurred";
+        echo 'An error has occurred';
     }
 );

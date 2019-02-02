@@ -36,7 +36,7 @@ $arrResources = [
         'Cities' => ['index', 'create', 'get', 'ajax', 'update', 'delete'],
     ],
     'Superuser' => [
-        'Users' => ['changePassword'],
+        'Users' => ['changePassword', 'delete'],
     ],
 ];
 
