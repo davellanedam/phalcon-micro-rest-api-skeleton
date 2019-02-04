@@ -1,3 +1,11 @@
+## 1.0.3 (Feb 4, 2019)
+
+* Changelog updated
+
+## 1.0.2 (Feb 4, 2019)
+
+* Refactor tests
+
 ## 1.0.1 (Feb 2, 2019)
 
 * Postman collection updated
