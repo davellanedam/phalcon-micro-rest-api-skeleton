@@ -20,7 +20,7 @@ class IndexTest extends TestCase
     {
         $response = $this->http->request('POST', 'authenticate', [
             'headers' => [
-                'Authorization' => 'Basic ' . $credentials,
+                'Authorization' => 'Basic ' . base64_encode($credentials),
             ]]);
         return $response;
     }
@@ -35,7 +35,7 @@ class IndexTest extends TestCase
 
     public function testLogin()
     {
-        $response = $this->postLogin(base64_encode('admin:admin1234'));
+        $response = $this->postLogin('admin:admin1234');
         $this->assertEquals(200, $response->getStatusCode());
         $json = $this->getJSON($response);
         $this->assertEquals('common.SUCCESSFUL_REQUEST', $json['messages']);
@@ -45,7 +45,7 @@ class IndexTest extends TestCase
 
     public function testLoginUserNotRegistered()
     {
-        $response = $this->postLogin(base64_encode('admin1234:admin1234'));
+        $response = $this->postLogin('admin1234:admin1234');
         $this->assertEquals(404, $response->getStatusCode());
         $json = $this->getJSON($response);
         $this->assertEquals('login.USER_IS_NOT_REGISTERED', $json['messages']);
@@ -53,7 +53,7 @@ class IndexTest extends TestCase
 
     public function testLoginWrongPassword()
     {
-        $response = $this->postLogin(base64_encode('admin:admin12345'));
+        $response = $this->postLogin('admin:admin12345');
         $this->assertEquals(400, $response->getStatusCode());
         $json = $this->getJSON($response);
         $this->assertEquals('login.WRONG_USER_PASSWORD', $json['messages']);

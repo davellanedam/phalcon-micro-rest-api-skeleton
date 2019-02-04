@@ -1,3 +1,7 @@
+## 1.0.5(Feb 4, 2019)
+
+* Refactor tests
+
 ## 1.0.4 (Feb 4, 2019)
 
 * Refactor tests
