@@ -17,9 +17,10 @@ class CitiesTest extends TestCase
         $this->http = null;
     }
 
-    public function testGetCities()
+    protected function deleteItem($id)
     {
-        $response = $this->http->request('GET', 'cities', [
+        // Delete just created item
+        $response = $this->http->request('DELETE', 'cities/delete/' . $id, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->credentials,
             ]]);
@@ -28,10 +29,10 @@ class CitiesTest extends TestCase
         $contentType = $response->getHeaders()["Content-Type"][0];
         $this->assertEquals("application/json; charset=UTF-8", $contentType);
         $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.SUCCESSFUL_REQUEST', $json['messages']);
+        $this->assertEquals('common.DELETED_SUCCESSFULLY', $json['messages']);
     }
 
-    public function testCreateCity()
+    protected function createItem()
     {
         $response = $this->http->request('POST', 'cities/create', [
             'headers' => [
@@ -48,9 +49,12 @@ class CitiesTest extends TestCase
         $json = json_decode($response->getBody(), true);
         $this->assertEquals('common.CREATED_SUCCESSFULLY', $json['messages']);
         $id = $json['data']['id'];
+        return $id;
+    }
 
-        // Delete just created item
-        $response = $this->http->request('DELETE', 'cities/delete/' . $id, [
+    public function testGetCities()
+    {
+        $response = $this->http->request('GET', 'cities', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->credentials,
             ]]);
@@ -59,7 +63,16 @@ class CitiesTest extends TestCase
         $contentType = $response->getHeaders()["Content-Type"][0];
         $this->assertEquals("application/json; charset=UTF-8", $contentType);
         $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.DELETED_SUCCESSFULLY', $json['messages']);
+        $this->assertEquals('common.SUCCESSFUL_REQUEST', $json['messages']);
+    }
+
+    public function testCreateCity()
+    {
+        // Create new item
+        $id = $this->createItem();
+
+        // Delete just created item
+        $this->deleteItem($id);
     }
 
     public function testCannotCreateDuplicatedCity()
@@ -96,22 +109,8 @@ class CitiesTest extends TestCase
 
     public function testUpdateCity()
     {
-        // Create city
-        $response = $this->http->request('POST', 'cities/create', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ],
-            'form_params' => [
-                'name' => 'Girón',
-                'country' => 'Colombia',
-            ]]);
-
-        $this->assertEquals(201, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.CREATED_SUCCESSFULLY', $json['messages']);
-        $id = $json['data']['id'];
+        // Create new item
+        $id = $this->createItem();
 
         // updates city
         $response = $this->http->request('PATCH', 'cities/update/' . $id, [
@@ -130,36 +129,13 @@ class CitiesTest extends TestCase
         $this->assertEquals('Girón2', $json['data']['name']);
 
         // Delete just created item
-        $response = $this->http->request('DELETE', 'cities/delete/' . $id, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ]]);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.DELETED_SUCCESSFULLY', $json['messages']);
+        $this->deleteItem($id);
     }
 
     public function testCannotUpdateCityThatAlreadyExists()
     {
-        // Create city
-        $response = $this->http->request('POST', 'cities/create', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ],
-            'form_params' => [
-                'name' => 'Girón',
-                'country' => 'Colombia',
-            ]]);
-
-        $this->assertEquals(201, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.CREATED_SUCCESSFULLY', $json['messages']);
-        $id = $json['data']['id'];
+        // Create new item
+        $id = $this->createItem();
 
         // updates city
         $response = $this->http->request('PATCH', 'cities/update/' . $id, [
@@ -178,46 +154,15 @@ class CitiesTest extends TestCase
         $this->assertEquals('common.THERE_IS_ALREADY_A_RECORD_WITH_THAT_NAME', $json['messages']);
 
         // Delete just created item
-        $response = $this->http->request('DELETE', 'cities/delete/' . $id, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ]]);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.DELETED_SUCCESSFULLY', $json['messages']);
+        $this->deleteItem($id);
     }
 
     public function testDeleteCity()
     {
-        $response = $this->http->request('POST', 'cities/create', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ],
-            'form_params' => [
-                'name' => 'Girón',
-                'country' => 'Colombia',
-            ]]);
-
-        $this->assertEquals(201, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.CREATED_SUCCESSFULLY', $json['messages']);
-        $id = $json['data']['id'];
+        // Create new item
+        $id = $this->createItem();
 
         // Delete just created item
-        $response = $this->http->request('DELETE', 'cities/delete/' . $id, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ]]);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.DELETED_SUCCESSFULLY', $json['messages']);
+        $this->deleteItem($id);
     }
 }

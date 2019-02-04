@@ -17,6 +17,51 @@ class UsersTest extends TestCase
         $this->http = null;
     }
 
+    protected function deleteItem($id)
+    {
+        $response = $this->http->request('DELETE', 'users/delete/' . $id, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->credentials,
+            ]]);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $contentType = $response->getHeaders()["Content-Type"][0];
+        $this->assertEquals("application/json; charset=UTF-8", $contentType);
+        $json = json_decode($response->getBody(), true);
+        $this->assertEquals('common.DELETED_SUCCESSFULLY', $json['messages']);
+    }
+
+    protected function createItem()
+    {
+        $response = $this->http->request('POST', 'users/create', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->credentials,
+            ],
+            'form_params' => [
+                'email' => 'another@email.com',
+                'new_password' => 'test123',
+                'username' => 'admintest',
+                'firstname' => 'My name',
+                'lastname' => 'My last name',
+                'level' => 'Superuser',
+                'phone' => '12312312',
+                'mobile' => '31312312',
+                'address' => 'Calle 10',
+                'city' => 'Bogotá',
+                'country' => 'Colombia',
+                'birthday' => '1979-01-01',
+                'authorised' => '1',
+            ]]);
+
+        $this->assertEquals(201, $response->getStatusCode());
+        $contentType = $response->getHeaders()["Content-Type"][0];
+        $this->assertEquals("application/json; charset=UTF-8", $contentType);
+        $json = json_decode($response->getBody(), true);
+        $this->assertEquals('common.CREATED_SUCCESSFULLY', $json['messages']);
+        $id = $json['data']['id'];
+        return $id;
+    }
+
     public function testGetUsers()
     {
         $response = $this->http->request('GET', 'users', [
@@ -33,74 +78,17 @@ class UsersTest extends TestCase
 
     public function testCreateUser()
     {
-        $response = $this->http->request('POST', 'users/create', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ],
-            'form_params' => [
-                'email' => 'another@email.com',
-                'new_password' => 'test123',
-                'username' => 'admintest',
-                'firstname' => 'My name',
-                'lastname' => 'My last name',
-                'level' => 'Superuser',
-                'phone' => '12312312',
-                'mobile' => '31312312',
-                'address' => 'Calle 10',
-                'city' => 'Bogotá',
-                'country' => 'Colombia',
-                'birthday' => '1979-01-01',
-                'authorised' => '1',
-            ]]);
-
-        $this->assertEquals(201, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.CREATED_SUCCESSFULLY', $json['messages']);
-        $id = $json['data']['id'];
+        // Create new item
+        $id = $this->createItem();
 
         // Delete just created item
-        $response = $this->http->request('DELETE', 'users/delete/' . $id, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ]]);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.DELETED_SUCCESSFULLY', $json['messages']);
+        $this->deleteItem($id);
     }
 
     public function testCannotCreateDuplicatedUser()
     {
-        $response = $this->http->request('POST', 'users/create', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ],
-            'form_params' => [
-                'email' => 'another@email.com',
-                'new_password' => 'test123',
-                'username' => 'admintest',
-                'firstname' => 'My name',
-                'lastname' => 'My last name',
-                'level' => 'Superuser',
-                'phone' => '12312312',
-                'mobile' => '31312312',
-                'address' => 'Calle 10',
-                'city' => 'Bogotá',
-                'country' => 'Colombia',
-                'birthday' => '1979-01-01',
-                'authorised' => '1',
-            ]]);
-
-        $this->assertEquals(201, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.CREATED_SUCCESSFULLY', $json['messages']);
-        $id = $json['data']['id'];
+        // Create new item
+        $id = $this->createItem();
 
         // creates duplicated
         $response = $this->http->request('POST', 'users/create', [
@@ -130,16 +118,7 @@ class UsersTest extends TestCase
         $this->assertEquals('profile.ANOTHER_USER_ALREADY_REGISTERED_WITH_THIS_USERNAME', $json['messages']);
 
         // Delete just created item
-        $response = $this->http->request('DELETE', 'users/delete/' . $id, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ]]);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.DELETED_SUCCESSFULLY', $json['messages']);
+        $this->deleteItem($id);
     }
 
     public function testGetUserById()
@@ -158,33 +137,8 @@ class UsersTest extends TestCase
 
     public function testUpdateUser()
     {
-        // Create user
-        $response = $this->http->request('POST', 'users/create', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ],
-            'form_params' => [
-                'email' => 'another@email.com',
-                'new_password' => 'test123',
-                'username' => 'admintest',
-                'firstname' => 'My name',
-                'lastname' => 'My last name',
-                'level' => 'Superuser',
-                'phone' => '12312312',
-                'mobile' => '31312312',
-                'address' => 'Calle 10',
-                'city' => 'Bogotá',
-                'country' => 'Colombia',
-                'birthday' => '1979-01-01',
-                'authorised' => '1',
-            ]]);
-
-        $this->assertEquals(201, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.CREATED_SUCCESSFULLY', $json['messages']);
-        $id = $json['data']['id'];
+        // Create new item
+        $id = $this->createItem();
 
         // updates user
         $response = $this->http->request('PATCH', 'users/update/' . $id, [
@@ -214,57 +168,15 @@ class UsersTest extends TestCase
         $this->assertEquals('onemore@email.com', $json['data']['email']);
 
         // Delete just created item
-        $response = $this->http->request('DELETE', 'users/delete/' . $id, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ]]);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.DELETED_SUCCESSFULLY', $json['messages']);
+        $this->deleteItem($id);
     }
 
     public function testDeleteUser()
     {
-        $response = $this->http->request('POST', 'users/create', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ],
-            'form_params' => [
-                'email' => 'another@email.com',
-                'new_password' => 'test123',
-                'username' => 'admintest',
-                'firstname' => 'My name',
-                'lastname' => 'My last name',
-                'level' => 'Superuser',
-                'phone' => '12312312',
-                'mobile' => '31312312',
-                'address' => 'Calle 10',
-                'city' => 'Bogotá',
-                'country' => 'Colombia',
-                'birthday' => '1979-01-01',
-                'authorised' => '1',
-            ]]);
-
-        $this->assertEquals(201, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.CREATED_SUCCESSFULLY', $json['messages']);
-        $id = $json['data']['id'];
+        // Create new item
+        $id = $this->createItem();
 
         // Delete just created item
-        $response = $this->http->request('DELETE', 'users/delete/' . $id, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ]]);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
-        $this->assertEquals('common.DELETED_SUCCESSFULLY', $json['messages']);
+        $this->deleteItem($id);
     }
 }
