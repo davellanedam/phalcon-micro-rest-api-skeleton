@@ -9,7 +9,7 @@ class CitiesTest extends TestCase
     public function setUp()
     {
         $this->http = new GuzzleHttp\Client(['base_uri' => 'http://api.myproject.local/', 'http_errors' => false]);
-        $this->credentials = 'm2ZWs+fUkNCSl/EwRaupfrRpkJDf5L4cc5RJILHjMzgifMIXplDz70yQXiCTbbvzu2BzBTPADBF83YxZQfAEPlCKfTSIPIHOY3Z6M4/1HsOKeIfBomxTBDlP6xyHNUH1VRKtIIm8ClRC8QJZvQO5I5ATHU488/W6Mx+JyE94Wceot2C57JDELvt8lY9Buu2ORZU0CLH6Ih7znOEUE3V7GodYdYNrCCm/hEwTw1V9XpHFUBNKqLjrG/Rh0KYHvIRBDfNXlKzyKJFnFnSfzvJBjk64N0smUfxrLILqaMAFVGlcs5HsItIzq0il5o4Wc1Ng7R3HbVHK8BpUyPeqguBB8Q0OnhGmlQmD4sjIpsHwJk2Db7rCQY+4xl7KxB05SMC/Qxl++I9ldXj3Hc4suAJvgowO673zwIcrrcnNb9QcJ9er0UVCV8W6mAW0wDzysWfMbbHFJ/LAdooF7UwayH3hkSh6BIzY1tMDh7FOMJ7tkH8zWFJPWThnLMgUK+f98NGjU9Ld1YwV11x2RYF5lCrx';
+        $this->credentials = $this->getToken();
     }
 
     public function tearDown()
@@ -17,36 +17,86 @@ class CitiesTest extends TestCase
         $this->http = null;
     }
 
-    protected function deleteItem($id)
+    protected function getJSON($response)
     {
-        // Delete just created item
-        $response = $this->http->request('DELETE', 'cities/delete/' . $id, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ]]);
-
-        $this->assertEquals(200, $response->getStatusCode());
         $contentType = $response->getHeaders()["Content-Type"][0];
         $this->assertEquals("application/json; charset=UTF-8", $contentType);
         $json = json_decode($response->getBody(), true);
+        return $json;
+    }
+
+    protected function getToken()
+    {
+        $credentials = base64_encode('admin:admin1234');
+
+        $response = $this->http->request('POST', 'authenticate', [
+            'headers' => [
+                'Authorization' => 'Basic ' . $credentials,
+            ]]);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $json = $this->getJSON($response);
+        $this->assertEquals('common.SUCCESSFUL_REQUEST', $json['messages']);
+        $this->assertEquals('1', $json['data']['user']['id']);
+        $this->assertEquals('admin', $json['data']['user']['username']);
+        return $json['data']['token'];
+    }
+
+    protected function buildGetRequest($endpoint)
+    {
+        $response = $this->http->request('GET', $endpoint, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->credentials,
+            ]]);
+        return $response;
+    }
+
+    protected function buildGetOrDeleteRequestById($method, $endpoint, $id)
+    {
+        $response = $this->http->request($method, $endpoint . $id, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->credentials,
+            ]]);
+        return $response;
+    }
+
+    protected function buildPostRequest($endpoint, $params)
+    {
+        $response = $this->http->request('POST', $endpoint, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->credentials,
+            ],
+            'form_params' => $params]);
+        return $response;
+    }
+
+    protected function buildPatchRequest($endpoint, $params, $id)
+    {
+        $response = $this->http->request('PATCH', $endpoint . $id, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->credentials,
+            ],
+            'form_params' => $params]);
+        return $response;
+    }
+
+    protected function deleteItem($id)
+    {
+        $response = $this->buildGetOrDeleteRequestById('DELETE', 'cities/delete/', $id);
+        $this->assertEquals(200, $response->getStatusCode());
+        $json = $this->getJSON($response);
         $this->assertEquals('common.DELETED_SUCCESSFULLY', $json['messages']);
     }
 
     protected function createItem()
     {
-        $response = $this->http->request('POST', 'cities/create', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ],
-            'form_params' => [
-                'name' => 'Girón',
-                'country' => 'Colombia',
-            ]]);
-
+        $params = [
+            'name' => 'Girón',
+            'country' => 'Colombia',
+        ];
+        $response = $this->buildPostRequest('cities/create', $params);
         $this->assertEquals(201, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
+        $json = $this->getJSON($response);
         $this->assertEquals('common.CREATED_SUCCESSFULLY', $json['messages']);
         $id = $json['data']['id'];
         return $id;
@@ -54,115 +104,69 @@ class CitiesTest extends TestCase
 
     public function testGetCities()
     {
-        $response = $this->http->request('GET', 'cities', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ]]);
-
+        $response = $this->buildGetRequest('cities');
         $this->assertEquals(200, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
+        $json = $this->getJSON($response);
         $this->assertEquals('common.SUCCESSFUL_REQUEST', $json['messages']);
     }
 
     public function testCreateCity()
     {
-        // Create new item
         $id = $this->createItem();
-
-        // Delete just created item
         $this->deleteItem($id);
     }
 
     public function testCannotCreateDuplicatedCity()
     {
-        $response = $this->http->request('POST', 'cities/create', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ],
-            'form_params' => [
-                'name' => 'Bogotá',
-                'country' => 'Colombia',
-            ]]);
-
+        $params = [
+            'name' => 'Bogotá',
+            'country' => 'Colombia',
+        ];
+        $response = $this->buildPostRequest('cities/create', $params);
         $this->assertEquals(409, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
+        $json = $this->getJSON($response);
         $this->assertEquals('common.THERE_IS_ALREADY_A_RECORD_WITH_THAT_NAME', $json['messages']);
     }
 
     public function testGetCityById()
     {
-        $response = $this->http->request('GET', 'cities/get/1', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ]]);
-
+        $response = $this->buildGetOrDeleteRequestById('GET', 'cities/get/', 1);
         $this->assertEquals(200, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
+        $json = $this->getJSON($response);
         $this->assertEquals('Bogotá', $json['data']['name']);
     }
 
     public function testUpdateCity()
     {
-        // Create new item
         $id = $this->createItem();
-
-        // updates city
-        $response = $this->http->request('PATCH', 'cities/update/' . $id, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ],
-            'form_params' => [
-                'name' => 'Girón2',
-                'country' => 'Colombia2',
-            ]]);
-
+        $params = [
+            'name' => 'Girón2',
+            'country' => 'Colombia2',
+        ];
+        $response = $this->buildPatchRequest('cities/update/', $params, $id);
         $this->assertEquals(200, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
+        $json = $this->getJSON($response);
         $this->assertEquals('Girón2', $json['data']['name']);
-
-        // Delete just created item
         $this->deleteItem($id);
     }
 
     public function testCannotUpdateCityThatAlreadyExists()
     {
-        // Create new item
         $id = $this->createItem();
-
-        // updates city
-        $response = $this->http->request('PATCH', 'cities/update/' . $id, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->credentials,
-            ],
-            'form_params' => [
-                'name' => 'Bogotá',
-                'country' => 'Colombia',
-            ]]);
-
+        $params = [
+            'name' => 'Bogotá',
+            'country' => 'Colombia',
+        ];
+        $response = $this->buildPatchRequest('cities/update/', $params, $id);
         $this->assertEquals(409, $response->getStatusCode());
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json; charset=UTF-8", $contentType);
-        $json = json_decode($response->getBody(), true);
+        $json = $this->getJSON($response);
         $this->assertEquals('common.THERE_IS_ALREADY_A_RECORD_WITH_THAT_NAME', $json['messages']);
-
-        // Delete just created item
         $this->deleteItem($id);
     }
 
     public function testDeleteCity()
     {
-        // Create new item
         $id = $this->createItem();
-
-        // Delete just created item
         $this->deleteItem($id);
     }
 }
