@@ -29,7 +29,7 @@ class indexController extends ControllerBase
         $user = Users::findFirst(
             array(
                 $conditions,
-                'bind' => $parameters
+                'bind' => $parameters,
             )
         );
         return (!$user) ? $this->buildErrorResponse(404, 'login.USER_IS_NOT_REGISTERED') : $user;
@@ -94,7 +94,7 @@ class indexController extends ControllerBase
             'username' => $user->username,
             'email' => $user->email,
             'firstname' => $user->firstname,
-            'lastname' => $user->lastname
+            'lastname' => $user->lastname,
         );
         return $user_data;
     }
@@ -114,7 +114,7 @@ class indexController extends ControllerBase
             'username_firstname' => $user->firstname,
             'username_lastname' => $user->lastname,
             'username_level' => $user->level,
-            'rand' => rand() . microtime()
+            'rand' => rand() . microtime(),
         );
         return $token_data;
     }
@@ -132,7 +132,7 @@ class indexController extends ControllerBase
         $newAccess->username = $user->username;
         $newAccess->ip = (isset($headers['Http-Client-Ip']) || !empty($headers['Http-Client-Ip'])) ? $headers['Http-Client-Ip'] : $this->request->getClientAddress();
         $newAccess->domain = (isset($headers['Http-Client-Domain']) || !empty($headers['Http-Client-Domain'])) ? $headers['Http-Client-Domain'] : gethostbyaddr($this->request->getClientAddress());
-        $newAccess->country = (isset($headers['Http-Client-Country']) || !empty($headers['Http-Client-Country'])) ? $headers['Http-Client-Country'] : (isset($_SERVER['HTTP_CF_IPCOUNTRY'])) ? $_SERVER['HTTP_CF_IPCOUNTRY'] : 'XX';
+        $newAccess->country = (isset($headers['Http-Client-Country']) || !empty($headers['Http-Client-Country'])) ? $headers['Http-Client-Country'] : ($this->request->getServer('HTTP_CF_IPCOUNTRY') !== null) ? $this->request->getServer('HTTP_CF_IPCOUNTRY') : 'XX';
         $newAccess->browser = $this->request->getUserAgent();
         $newAccess->date = $this->getNowDateTime();
         $this->tryToSaveData($newAccess);
@@ -158,7 +158,7 @@ class indexController extends ControllerBase
 
             $data = array(
                 'token' => $token,
-                'user' => $user_data
+                'user' => $user_data,
             );
 
             $this->resetLoginAttempts($user);

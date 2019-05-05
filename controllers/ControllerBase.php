@@ -69,9 +69,8 @@ class ControllerBase extends Controller
                 $errors[] = $message->getMessage();
             }
             $this->buildErrorResponse(400, 'common.COULD_NOT_BE_DELETED', $errors);
-        } else {
-            return true;
         }
+        return true;
     }
 
     /**
