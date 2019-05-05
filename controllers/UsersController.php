@@ -69,7 +69,7 @@ class UsersController extends ControllerBase
         if ($last_access) {
             $array = array();
             $user_last_access = $last_access->toArray();
-            foreach ($user_last_access as $key_last_access => $value_last_access) {
+            foreach ($user_last_access as $value_last_access) {
                 $this_user_last_access = array(
                     'date' => $this->utc_to_iso8601($value_last_access['date']),
                     'ip' => $value_last_access['ip'],
@@ -102,7 +102,7 @@ class UsersController extends ControllerBase
 
     private function setNewPassword($new_password, $user)
     {
-        $user->password = password_hash($this->request->getPut('new_password'), PASSWORD_BCRYPT);
+        $user->password = password_hash($new_password, PASSWORD_BCRYPT);
         $this->tryToSaveData($user, 'common.COULD_NOT_BE_UPDATED');
     }
 

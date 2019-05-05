@@ -19,8 +19,6 @@ class AccessMiddleware extends ControllerBase implements MiddlewareInterface
         $array = (array) $arrHandler[0];
         $nameController = implode('', $array);
         $controller = str_replace('Controller', '', $nameController);
-        // get function
-        $function = $arrHandler[1];
         // check if controller is Index, if it´s Index, then checks if any of functions are called if so return allow
         if ($controller === 'Index') {
             $allowed = 1;

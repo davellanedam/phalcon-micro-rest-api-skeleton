@@ -86,8 +86,8 @@ class ControllerBase extends Controller
         $limit = $offset + $rows;
 
         // Handles Sort querystring (order_by)
-        if ($this->request->get('sort') != null && $this->request->get('order') != null) {
-            $order_by = $this->request->get('sort') . ' ' . $this->request->get('order');
+        if ($sort != null && $order != null) {
+            $order_by = $sort . ' ' . $order;
         }
 
         // Gets rows_per_page
@@ -250,7 +250,7 @@ class ControllerBase extends Controller
      */
     public function iso8601_to_utc($date)
     {
-        return $datetime = date('Y-m-d H:i:s', strtotime($date));
+        return date('Y-m-d H:i:s', strtotime($date));
     }
 
     /**
