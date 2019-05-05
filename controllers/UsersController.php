@@ -70,32 +70,32 @@ class UsersController extends ControllerBase
             $array = array();
             $user_last_access = $last_access->toArray();
             foreach ($user_last_access as $value_last_access) {
-                $this_user_last_access = array(
+                $_user_last_access = array(
                     'date' => $this->utc_to_iso8601($value_last_access['date']),
                     'ip' => $value_last_access['ip'],
                     'domain' => $value_last_access['domain'],
                     'browser' => $value_last_access['browser'],
                 );
-                $array[] = $this_user_last_access;
+                $array[] = $_user_last_access;
             }
             $user = empty($array) ? $this->array_push_assoc($user, 'last_access', '') : $this->array_push_assoc($user, 'last_access', $array);
             return $user;
         }
     }
 
-    private function updateUser($user, $firstname, $lastname, $birthday, $email, $level, $phone, $mobile, $address, $city, $country, $authorised = 0)
+    private function updateUser($user)
     {
-        $user->firstname = trim($firstname);
-        $user->lastname = trim($lastname);
-        $user->birthday = trim($birthday);
-        $user->email = trim($email);
-        $user->level = trim($level);
-        $user->phone = trim($phone);
-        $user->mobile = trim($mobile);
-        $user->address = trim($address);
-        $user->city = trim($city);
-        $user->country = trim($country);
-        $user->authorised = trim($authorised);
+        $user->email = trim($this->request->getPut('email'));
+        $user->firstname = trim($this->request->getPut('firstname'));
+        $user->lastname = trim($this->request->getPut('lastname'));
+        $user->level = trim($this->request->getPut('level'));
+        $user->phone = trim($this->request->getPut('phone'));
+        $user->mobile = trim($this->request->getPut('mobile'));
+        $user->address = trim($this->request->getPut('address'));
+        $user->city = trim($this->request->getPut('city'));
+        $user->country = trim($this->request->getPut('country'));
+        $user->birthday = trim($this->request->getPut('birthday'));
+        $user->authorised = trim($this->request->getPut('authorised')) || 0;
         $this->tryToSaveData($user, 'common.COULD_NOT_BE_UPDATED');
         return $user;
     }
@@ -147,7 +147,7 @@ class UsersController extends ControllerBase
     {
         $this->initializePatch();
         $this->checkForEmptyData([$this->request->getPut('firstname'), $this->request->getPut('authorised')]);
-        $user = $this->updateUser($this->findElementById('Users', $id), $this->request->getPut('firstname'), $this->request->getPut('lastname'), $this->request->getPut('birthday'), $this->request->getPut('email'), $this->request->getPut('level'), $this->request->getPut('phone'), $this->request->getPut('mobile'), $this->request->getPut('address'), $this->request->getPut('city'), $this->request->getPut('country'), $this->request->getPut('authorised'));
+        $user = $this->updateUser($this->findElementById('Users', $id));
         $user = $user->toArray();
         $user = $this->unsetPropertyFromArray($user, ['password', 'block_expires', 'login_attempts']);
         $this->registerLog();
