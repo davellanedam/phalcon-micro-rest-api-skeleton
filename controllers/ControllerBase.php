@@ -261,9 +261,8 @@ class ControllerBase extends Controller
         if (!empty($date) && ($date != '0000-00-00') && ($date != '0000-00-00 00:00') && ($date != '0000-00-00 00:00:00')) {
             $datetime = new DateTime($date);
             return $datetime->format('Y-m-d\TH:i:s\Z');
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
