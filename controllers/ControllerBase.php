@@ -280,6 +280,7 @@ class ControllerBase extends Controller
      */
     public function getQueryLimit($limit)
     {
+        $setLimit = 5;
         if ($limit != '') {
             if ($limit > 150) {
                 $setLimit = 150;
@@ -290,8 +291,6 @@ class ControllerBase extends Controller
             if (($limit >= 1) && ($limit <= 150)) {
                 $setLimit = $limit;
             }
-        } else {
-            $setLimit = 5;
         }
         return $setLimit;
     }
@@ -401,7 +400,6 @@ class ControllerBase extends Controller
         $this->response->setStatusCode($code, $status)->sendHeaders();
         $this->response->setContentType('application/json', 'UTF-8');
         $this->response->setJsonContent($generated, JSON_NUMERIC_CHECK)->send();
-        die();
     }
 
     /**
