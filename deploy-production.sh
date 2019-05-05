@@ -1,3 +1,4 @@
+#!/bin/sh
 PROJECT=myproject
 USER=server_username
 URL=my_production_server_url
