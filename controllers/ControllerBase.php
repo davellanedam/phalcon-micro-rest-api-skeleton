@@ -34,10 +34,9 @@ class ControllerBase extends Controller
                 $errors[] = $message->getMessage();
             }
             $this->buildErrorResponse(400, 'common.COULD_NOT_BE_CREATED', $errors);
-        } else {
-            // Commit the transaction
-            $this->db_log->commit();
         }
+        // Commit the transaction
+        $this->db_log->commit();
     }
 
     /**
