@@ -104,6 +104,6 @@ $app->notFound(function () use ($app) {
  */
 $app->error(
     function ($exception) {
-        echo 'An error has occurred';
+        print_r('An error has occurred');
     }
 );

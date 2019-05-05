@@ -58,7 +58,7 @@ try {
 
 } catch (\Exception $e) {
     if (APPLICATION_ENV === 'development') {
-        echo $e->getMessage() . '<br>';
-        echo '<pre>' . $e->getTraceAsString() . '</pre>';
+        print_r($e->getMessage() . '<br>');
+        print_r('<pre>' . $e->getTraceAsString() . '</pre>');
     }
 }

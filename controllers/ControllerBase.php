@@ -396,6 +396,7 @@ class ControllerBase extends Controller
         $this->response->setStatusCode($code, $status)->sendHeaders();
         $this->response->setContentType('application/json', 'UTF-8');
         $this->response->setJsonContent($generated, JSON_NUMERIC_CHECK)->send();
+        die();
     }
 
     /**
@@ -429,5 +430,6 @@ class ControllerBase extends Controller
         $this->response->setStatusCode($code, $status)->sendHeaders();
         $this->response->setContentType('application/json', 'UTF-8');
         $this->response->setJsonContent($generated, JSON_NUMERIC_CHECK)->send();
+        die();
     }
 }
