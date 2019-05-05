@@ -52,9 +52,8 @@ class ControllerBase extends Controller
                 $errors[] = $message->getMessage();
             }
             $this->buildErrorResponse(400, $customMessage, $errors);
-        } else {
-            return true;
         }
+        return true;
     }
 
     /**
