@@ -262,41 +262,41 @@ Example of language file `es.json` :
 
 ```json
 {
-    "common" : {
-        "HEADER_AUTHORIZATION_NOT_SENT": "Cabezote Authorization no enviado",
+    "common": {
+        "HEADER_AUTHORIZATION_NOT_SENT": "Autorización de encabezado no enviada",
         "EMPTY_TOKEN_OR_NOT_RECEIVED": "Token vacío o no recibido",
-        "YOUR_USER_ROLE_DOES_NOT_HAVE_THIS_FEATURE": "Tu rol de usuario no tiene esta característica",
-        "BAD_TOKEN_GET_A_NEW_ONE": "Token errado, solicita uno nuevo",
+        "YOUR_USER_ROLE_DOES_NOT_HAVE_THIS_FEATURE": "Su rol de usuario no tiene esta característica",
+        "BAD_TOKEN_GET_A_NEW_ONE": "Token incorrecto, solicite uno nuevo",
         "SUCCESSFUL_REQUEST": "Solicitud exitosa",
-        "CREATED_SUCCESSFULLY": "Creado ecitosamente",
         "THERE_IS_ALREADY_A_RECORD_WITH_THAT_NAME": "Ya existe un registro con ese nombre",
-        "UPDATED_SUCCESSFULLY": "Actualizado exitosamente",
-        "DELETED_SUCCESSFULLY": "Eliminado exitosamente",
-        "THERE_HAS_BEEN_AN_ERROR": "Ha ocurrido un error",
-        "INCOMPLETE_DATA_RECEIVED": "Datos incompletos recibidos",
+        "THERE_HAS_BEEN_AN_ERROR": "Ocurrió un error",
+        "INCOMPLETE_DATA_RECEIVED": "Los datos recibidos están incompletos",
         "NO_RECORDS": "No hay registros",
-        "COULD_NOT_BE_CREATED": "No se pudo crear",
         "NOT_FOUND": "No encontrado",
-        "COULD_NOT_BE_DELETED": "No pudo ser eliminado",
-        "COULD_NOT_BE_UPDATED": "No pudo ser actualizado"
+        "CREATED_SUCCESSFULLY": "Creado con éxito",
+        "DELETED_SUCCESSFULLY": "Eliminado con éxito",
+        "UPDATED_SUCCESSFULLY": "Actualizado con éxito",
+        "COULD_NOT_BE_CREATED": "No se pudo crear",
+        "COULD_NOT_BE_DELETED": "No se pudo eliminar",
+        "COULD_NOT_BE_UPDATED": "No se pudo actualizar"
     },
-    "login" : {
-        "USER_IS_NOT_REGISTERED": "Usuario no está registrado",
+    "login": {
+        "USER_IS_NOT_REGISTERED": "El usuario no está registrado",
         "USER_BLOCKED": "Usuario bloqueado",
         "USER_UNAUTHORIZED": "Usuario no autorizado",
-        "WRONG_USER_PASSWORD": "Contraseña de usuario errada",
-        "TOO_MANY_FAILED_LOGIN_ATTEMPTS": "Demasiados intento de ingreso fallidos"
+        "WRONG_USER_PASSWORD": "Contraseña de usuario incorrecta",
+        "TOO_MANY_FAILED_LOGIN_ATTEMPTS": "Demasiados intentos fallidos de inicio de sesión"
     },
-    "profile" : {
+    "profile": {
         "PROFILE_NOT_FOUND": "Perfil no encontrado",
-        "PROFILE_UPDATED": "Perfil actualizado",
-        "PROFILE_COULD_NOT_BE_UPDATED": "Perfil no pudo ser actualizado",
-        "ANOTHER_USER_ALREADY_REGISTERED_WITH_THIS_USERNAME": "Otro usuario ya se encuentra registrado con este nombre de usuario"
+        "PROFILE_UPDATED": "Perfil actualizado correctamente",
+        "PROFILE_COULD_NOT_BE_UPDATED": "No se pudo actualizar el perfil",
+        "ANOTHER_USER_ALREADY_REGISTERED_WITH_THIS_USERNAME": "Otro usuario ya se ha registrado con este nombre de usuario"
     },
-    "change-password" : {
-        "PASSWORD_COULD_NOT_BE_UPDATED": "Contraseña no pudo ser actualizada",
+    "change-password": {
+        "PASSWORD_COULD_NOT_BE_UPDATED": "No se pudo actualizar la contraseña",
         "PASSWORD_SUCCESSFULLY_UPDATED": "Contraseña actualizada exitosamente",
-        "WRONG_CURRENT_PASSWORD": "Contraseña actual errada"
+        "WRONG_CURRENT_PASSWORD": "La contraseña actual es incorrecta"
     }
 }
 ```
