@@ -34,10 +34,9 @@ class ControllerBase extends Controller
                 $errors[] = $message->getMessage();
             }
             $this->buildErrorResponse(400, 'common.COULD_NOT_BE_CREATED', $errors);
-        } else {
-            // Commit the transaction
-            $this->db_log->commit();
         }
+        // Commit the transaction
+        $this->db_log->commit();
     }
 
     /**
@@ -52,9 +51,8 @@ class ControllerBase extends Controller
                 $errors[] = $message->getMessage();
             }
             $this->buildErrorResponse(400, $customMessage, $errors);
-        } else {
-            return true;
         }
+        return true;
     }
 
     /**
@@ -69,9 +67,8 @@ class ControllerBase extends Controller
                 $errors[] = $message->getMessage();
             }
             $this->buildErrorResponse(400, 'common.COULD_NOT_BE_DELETED', $errors);
-        } else {
-            return true;
         }
+        return true;
     }
 
     /**
@@ -86,8 +83,8 @@ class ControllerBase extends Controller
         $limit = $offset + $rows;
 
         // Handles Sort querystring (order_by)
-        if ($this->request->get('sort') != null && $this->request->get('order') != null) {
-            $order_by = $this->request->get('sort') . ' ' . $this->request->get('order');
+        if ($sort != null && $order != null) {
+            $order_by = $sort . ' ' . $order;
         }
 
         // Gets rows_per_page
@@ -250,7 +247,7 @@ class ControllerBase extends Controller
      */
     public function iso8601_to_utc($date)
     {
-        return $datetime = date('Y-m-d H:i:s', strtotime($date));
+        return date('Y-m-d H:i:s', strtotime($date));
     }
 
     /**
@@ -261,9 +258,8 @@ class ControllerBase extends Controller
         if (!empty($date) && ($date != '0000-00-00') && ($date != '0000-00-00 00:00') && ($date != '0000-00-00 00:00:00')) {
             $datetime = new DateTime($date);
             return $datetime->format('Y-m-d\TH:i:s\Z');
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -280,6 +276,7 @@ class ControllerBase extends Controller
      */
     public function getQueryLimit($limit)
     {
+        $setLimit = 5;
         if ($limit != '') {
             if ($limit > 150) {
                 $setLimit = 150;
@@ -290,8 +287,6 @@ class ControllerBase extends Controller
             if (($limit >= 1) && ($limit <= 150)) {
                 $setLimit = $limit;
             }
-        } else {
-            $setLimit = 5;
         }
         return $setLimit;
     }
