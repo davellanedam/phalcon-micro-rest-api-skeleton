@@ -1,3 +1,7 @@
+## 1.0.6 (Oct 1, 2019)
+
+-   Updated README.md
+
 ## 1.0.5 (Feb 4, 2019)
 
 -   Refactor tests
